@@ -98,7 +98,7 @@ void RegisterDialog::on_get_code_clicked()
         //发送http请求获取验证码
         QJsonObject json_obj;
         json_obj["email"] = email;
-        HttpMgr::GetInstance()->PostHttpReq(QUrl("http://localhost:8080/get_varifycode"),
+        HttpMgr::GetInstance()->PostHttpReq(QUrl(/*gate_url_prefix + */"http://localhost:8080/get_varifycode"),
                                             json_obj,ReqId::ID_GET_VARIFY_CODE, Modules::REGISTERMOD);
     }else{
         //提示邮箱不正确
@@ -173,7 +173,7 @@ void RegisterDialog::on_sure_btn_clicked()
     json_obj["passwd"] = ui->pass_edit->text();
     json_obj["confirm"] = ui->confirm_edit->text();
     json_obj["varifycode"] = ui->varify_edit->text();
-    HttpMgr::GetInstance()->PostHttpReq(QUrl("http://localhost:8080/user_register"),
+    HttpMgr::GetInstance()->PostHttpReq(QUrl(/*gate_url_prefix + */"http://localhost:8080/user_register"),
                             json_obj, ReqId::ID_REG_USER, Modules::REGISTERMOD);
 }
 

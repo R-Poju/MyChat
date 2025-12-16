@@ -23,9 +23,9 @@ MainWindow::MainWindow(QWidget *parent) :
     //connect(TcpMgr::GetInstance().get(), )
 
 
-    qDebug() << "输出当前QT支持的openSSL版本: " << QSslSocket::sslLibraryBuildVersionString();
-    qDebug() << "OpenSSL支持情况: " <<QSslSocket::supportsSsl();
-    qDebug() << "OpenSSL运行时SSL库版本: " << QSslSocket::sslLibraryBuildVersionString();
+//    qDebug() << "输出当前QT支持的openSSL版本: " << QSslSocket::sslLibraryBuildVersionString();
+//    qDebug() << "OpenSSL支持情况: " <<QSslSocket::supportsSsl();
+//    qDebug() << "OpenSSL运行时SSL库版本: " << QSslSocket::sslLibraryBuildVersionString();
 
     //将此代码置于QT中运行即可诊断是否缺少OPenSSL库
 }
