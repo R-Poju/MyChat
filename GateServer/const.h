@@ -9,7 +9,6 @@
 #include <json/value.h>
 #include <json/reader.h>
 #include "Singleton.h"
-#include "ConfigMgr.h"
 #include <assert.h>
 #include <queue>
 #include <jdbc/mysql_driver.h>
@@ -18,12 +17,16 @@
 #include <jdbc/cppconn/resultset.h>
 #include <jdbc/cppconn/statement.h>
 #include <jdbc/cppconn/exception.h>
-#include <hiredis.h>
 #include <functional>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <string>
+#include <grpcpp/channel.h>
+#include "message.pb.h"
+#include "message.grpc.pb.h"
+#include <grpcpp/grpcpp.h>
+#include "ConfigMgr.h"
 
 namespace beast = boost::beast;         // from <boost/beast.hpp>
 namespace http = beast::http;           // from <boost/beast/http.hpp>

@@ -4,7 +4,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <IncludePath>D:\FutureSrcInc\mysql-connector-c++-8.3.0-winx64\include;D:\FutureSrcInc\redis\deps\hiredis;D:\FutureSrcInc\json\include;D:\FutureSrcInc\boost_1_87_0;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\FutureSrcInc\mysql-connector-c++-8.3.0-winx64\lib64\vs14;D:\FutureSrcInc\redis\lib;D:\FutureSrcInc\json\lib;D:\FutureSrcInc\boost_1_87_0\libs;$(LibraryPath)</LibraryPath>
+    <LibraryPath>D:\FutureSrcInc\boost_1_87_0\stage\lib;D:\FutureSrcInc\mysql-connector-c++-8.3.0-winx64\lib64\vs14;D:\FutureSrcInc\redis\lib;D:\FutureSrcInc\json\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>

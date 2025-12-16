@@ -51,6 +51,9 @@
     <ClCompile Include="MysqlDao.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="StatusGrpcClient.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CServer.h">
@@ -92,5 +95,11 @@
     <ClInclude Include="MysqlMgr.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="StatusGrpcClient.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="message.proto" />
   </ItemGroup>
 </Project>
