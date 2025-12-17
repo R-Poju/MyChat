@@ -40,8 +40,19 @@ void LoginDialog::initHttpHandlers()
         }
 
         auto email = jsonObj["email"].toString();
-        showTip(tr("登录成功"), true);
-        qDebug() << "user is " << email;
+
+        //发送信号通知tcpMgr发送长链接
+        ServerInfo si;
+        si.Uid = jsonObj["uid"].toInt();
+        si.Host = jsonObj["host"].toString();
+        si.Port = jsonObj["Port"].toString();
+        si.Token = jsonObj["token"].toString();
+
+        _uid = si.Uid;
+        _token = si.Token;
+        qDebug() << "user is " << email << "uid is " << si.Uid << "host is " << si.Host
+                 << "Port is " << si.Port << "Token is " << si.Token;
+        emit sig_connect_tcp(si);
     });
 }
 
@@ -121,6 +132,26 @@ void LoginDialog::slot_login_mod_finish(ReqId id, QString res, ErrorCodes err)
 
 
     return;
+}
+
+void LoginDialog::slot_tcp_con_finish(bool bsuccess)
+{
+    if(bsuccess){
+        showTip(tr("聊天服务连接成功，正在登录..."), true);
+        QJsonObject jsonObj;
+        jsonObj["uid"] = _uid;
+        jsonObj["token"] = _token;
+
+        QJsonDocument doc(jsonObj);
+        QString jsonString = doc.toJson(QJsonDocument::Indented);
+
+        //发送tcp请求给chatserver
+        TcpMgr::GetInstance()->sig_send_data(ReqId::ID_CHAT_LOGIN, jsonString);
+    }
+    else{
+        showTip(tr("网络异常"), false);
+        //enableBtn(true);
+    }
 }
 
 void LoginDialog::showTip(QString str, bool b_ok)
