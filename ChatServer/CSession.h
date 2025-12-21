@@ -68,3 +68,11 @@ private:
 	std::mutex _session_mtx;
 };
 
+class LogicNode {
+	friend class LogicSystem;
+public:
+	LogicNode(shared_ptr<CSession> session, shared_ptr<RecvNode> recvnode);
+private:
+	shared_ptr<CSession> _session;
+	shared_ptr<RecvNode> _recvnode;
+};

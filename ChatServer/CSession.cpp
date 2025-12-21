@@ -88,7 +88,7 @@ void CSession::AsyncReadBody(int total_len)
 			_recv_msg_node->_data[_recv_msg_node->_total_len] = '\0';
 			cout << "receive data is " << _recv_msg_node->_data << endl;
 			//此处将消息投递到逻辑队列中
-			//LogicSystem：：GetInstance()
+			//LogicSystem::GetInstance();
 			//继续监听头部接收事件
 			AsyncReadHead(HEAD_TOTAL_LEN);
 		}
@@ -126,4 +126,10 @@ void CSession::asyncReadLen(std::size_t read_len, std::size_t total_len,
 			//没有错误，且长度不足则继续读取
 			self->asyncReadLen(read_len + bytesTransfered, total_len, handler);
 		});
+}
+
+LogicNode::LogicNode(shared_ptr<CSession> session, shared_ptr<RecvNode> recvnode)
+	:_session(session), _recvnode(recvnode)
+{
+
 }

@@ -3,9 +3,9 @@
 #include <boost/asio.hpp>
 #include "Singleton.h"
 
-class AsioIOServicePool:public Singleton<AsioIOServicePool>
+class AsioIOServicePool :public Singleton<AsioIOServicePool>
 {
-	friend Singleton<AsioIOServicePool>;
+	friend class Singleton<AsioIOServicePool>;
 public:
 	using IOService = boost::asio::io_context;
 	using Work = boost::asio::executor_work_guard<boost::asio::io_context::executor_type>;
@@ -17,7 +17,7 @@ public:
 	boost::asio::io_context& GetIOService();
 	void Stop();
 private:
-	AsioIOServicePool(std::size_t size = 2);
+	AsioIOServicePool(std::size_t size = std::thread::hardware_concurrency());
 	std::vector<IOService> _ioServices;
 	std::vector<WorkPtr> _works;
 	std::vector<std::thread> _threads;

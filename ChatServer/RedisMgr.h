@@ -1,7 +1,11 @@
 #pragma once
 #include "const.h"
+#include "hiredis.h"
+#include <queue>
+#include <atomic>
+#include <mutex>
 #include "Singleton.h"
-#include <hiredis.h>
+#include "ConfigMgr.h"
 
 class RedisConPool
 {

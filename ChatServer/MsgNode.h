@@ -1,8 +1,8 @@
 #pragma once
-#include <iostream>
 #include <string>
-#include <boost/asio.hpp>
 #include "const.h"
+#include <iostream>
+#include <boost/asio.hpp>
 
 using namespace std;
 using boost::asio::ip::tcp;
