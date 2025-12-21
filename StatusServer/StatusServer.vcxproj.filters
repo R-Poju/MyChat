@@ -24,12 +24,6 @@
     <ClCompile Include="ConfigMgr.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="message.grpc.pb.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="message.pb.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="MysqlDao.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -42,6 +36,12 @@
     <ClCompile Include="StatusServiceImpl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="message.grpc.pb.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="message.pb.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AsioIOServicePool.h">
@@ -51,12 +51,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="const.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="message.grpc.pb.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="message.pb.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="MysqlDao.h">
@@ -74,11 +68,17 @@
     <ClInclude Include="StatusServiceImpl.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="message.grpc.pb.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="message.pb.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="config.ini" />
-    <None Include="message.proto" />
     <None Include="mysqlcppconn8-2-vs14.dll" />
     <None Include="mysqlcppconn-9-vs14.dll" />
+    <None Include="message.proto" />
   </ItemGroup>
 </Project>
