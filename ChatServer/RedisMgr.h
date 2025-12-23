@@ -153,4 +153,3 @@ private:
 	RedisMgr();
 	unique_ptr<RedisConPool>  _con_pool;
 };
-

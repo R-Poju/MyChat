@@ -1,6 +1,6 @@
 #pragma once
 #include <functional>
-
+#include <memory>
 
 enum ErrorCodes {
 	Success = 0,

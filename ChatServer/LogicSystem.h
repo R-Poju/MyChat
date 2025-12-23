@@ -5,14 +5,17 @@
 #include "CSession.h"
 #include <map>
 #include <functional>
+#include "const.h"
 #include <json/json.h>
 #include <json/value.h>
 #include <json/reader.h>
 #include <unordered_map>
 #include "data.h"
+
 #include "const.h"
 
 typedef function<void(shared_ptr<CSession>, const short& msg_id, const string& msg_data)> FunCallBack;
+
 class LogicSystem :public Singleton<LogicSystem>
 {
 	friend class Singleton<LogicSystem>;
@@ -32,4 +35,3 @@ private:
 	std::map<short, FunCallBack> _fun_callbacks;
 	std::unordered_map<int, std::shared_ptr<UserInfo>> _users;
 };
-

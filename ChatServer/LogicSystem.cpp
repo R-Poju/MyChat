@@ -3,19 +3,20 @@
 #include "MysqlMgr.h"
 #include "const.h"
 
-LogicSystem::LogicSystem() :_b_stop(false) {
+using namespace std;
+
+LogicSystem::LogicSystem():_b_stop(false){
 	RegisterCallBacks();
-	_worker_thread = std::thread(&LogicSystem::DealMsg, this);
+	_worker_thread = std::thread (&LogicSystem::DealMsg, this);
 }
 
-LogicSystem::~LogicSystem() {
+LogicSystem::~LogicSystem(){
 	_b_stop = true;
 	_consume.notify_one();
 	_worker_thread.join();
 }
 
-void LogicSystem::PostMsgToQue(shared_ptr<LogicNode> msg)
-{
+void LogicSystem::PostMsgToQue(shared_ptr < LogicNode> msg) {
 	std::unique_lock<std::mutex> unique_lk(_mutex);
 	_msg_que.push(msg);
 	//由0变为1则发送通知信号
@@ -25,8 +26,7 @@ void LogicSystem::PostMsgToQue(shared_ptr<LogicNode> msg)
 	}
 }
 
-void LogicSystem::DealMsg()
-{
+void LogicSystem::DealMsg() {
 	for (;;) {
 		std::unique_lock<std::mutex> unique_lk(_mutex);
 		//判断队列为空则用条件变量阻塞等待，并释放锁
@@ -34,11 +34,11 @@ void LogicSystem::DealMsg()
 			_consume.wait(unique_lk);
 		}
 
-		//判断是否为关闭状态，所有逻辑执行完后退出循环
-		if (_b_stop) {
+		//判断是否为关闭状态，把所有逻辑执行完后则退出循环
+		if (_b_stop ) {
 			while (!_msg_que.empty()) {
 				auto msg_node = _msg_que.front();
-				cout << "recv_msg id is " << msg_node->_recvnode->_msg_id << endl;
+				cout << "recv_msg id  is " << msg_node->_recvnode->_msg_id << endl;
 				auto call_back_iter = _fun_callbacks.find(msg_node->_recvnode->_msg_id);
 				if (call_back_iter == _fun_callbacks.end()) {
 					_msg_que.pop();
@@ -51,16 +51,16 @@ void LogicSystem::DealMsg()
 			break;
 		}
 
-		//如果没有停服，则说明队列中有数据
+		//如果没有停服，且说明队列中有数据
 		auto msg_node = _msg_que.front();
-		cout << "recv_msg id is " << msg_node->_recvnode->_msg_id << endl;
+		cout << "recv_msg id  is " << msg_node->_recvnode->_msg_id << endl;
 		auto call_back_iter = _fun_callbacks.find(msg_node->_recvnode->_msg_id);
 		if (call_back_iter == _fun_callbacks.end()) {
 			_msg_que.pop();
 			std::cout << "msg id [" << msg_node->_recvnode->_msg_id << "] handler not found" << std::endl;
 			continue;
 		}
-		call_back_iter->second(msg_node->_session, msg_node->_recvnode->_msg_id,
+		call_back_iter->second(msg_node->_session, msg_node->_recvnode->_msg_id, 
 			std::string(msg_node->_recvnode->_data, msg_node->_recvnode->_cur_len));
 		_msg_que.pop();
 	}
@@ -71,28 +71,27 @@ void LogicSystem::RegisterCallBacks() {
 		placeholders::_1, placeholders::_2, placeholders::_3);
 }
 
-void LogicSystem::LoginHandler(shared_ptr<CSession> session, const short& msg_id, const string& msg_data)
-{
+void LogicSystem::LoginHandler(shared_ptr<CSession> session, const short &msg_id, const string &msg_data) {
 	Json::Reader reader;
 	Json::Value root;
 	reader.parse(msg_data, root);
 	auto uid = root["uid"].asInt();
-	std::cout << "user login uid is " << uid << " user token is "
+	std::cout << "user login uid is  " << uid << " user token  is "
 		<< root["token"].asString() << endl;
-	//从状态服务器获取token是否匹配
+	//从状态服务器获取token匹配是否准确
 	auto rsp = StatusGrpcClient::GetInstance()->Login(uid, root["token"].asString());
-	Json::Value rtvalue;
+	Json::Value  rtvalue;
 	Defer defer([this, &rtvalue, session]() {
 		std::string return_str = rtvalue.toStyledString();
 		session->Send(return_str, MSG_CHAT_LOGIN_RSP);
-		});
+	});
 
 	rtvalue["error"] = rsp.error();
 	if (rsp.error() != ErrorCodes::Success) {
 		return;
 	}
 
-	//查询用户信息。先查询本地内存，查找不到再查询数据库
+	//内存中查询用户信息
 	auto find_iter = _users.find(uid);
 	std::shared_ptr<UserInfo> user_info = nullptr;
 	if (find_iter == _users.end()) {

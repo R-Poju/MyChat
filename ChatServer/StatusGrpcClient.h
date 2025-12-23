@@ -46,7 +46,7 @@ public:
 			}
 			return !connections_.empty();
 			});
-		//如果停止则直接返回空指针
+		//   停止  直 臃  乜 指  
 		if (b_stop_) {
 			return nullptr;
 		}

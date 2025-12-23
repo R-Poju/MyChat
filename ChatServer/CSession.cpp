@@ -90,13 +90,13 @@ void CSession::AsyncReadHead(int total_len)
 			_recv_head_node->Clear();
 			memcpy(_recv_head_node->_data, _data, bytes_transfered);
 
-			//»ñÈ¡Í·²¿MSGIDÊý¾Ý
+			//  È¡Í·  MSGID    
 			short msg_id = 0;
 			memcpy(&msg_id, _recv_head_node->_data, HEAD_ID_LEN);
-			//ÍøÂç×Ö½ÚÐò×ª»¯Îª±¾µØ×Ö½ÚÐò
+			//     Ö½   ×ª  Îª     Ö½   
 			msg_id = boost::asio::detail::socket_ops::network_to_host_short(msg_id);
 			std::cout << "msg_id is " << msg_id << endl;
-			//id·Ç·¨
+			//id Ç· 
 			if (msg_id > MAX_LENGTH) {
 				std::cout << "invalid msg_id is " << msg_id << endl;
 				_server->ClearSession(_uuid);
@@ -104,11 +104,11 @@ void CSession::AsyncReadHead(int total_len)
 			}
 			short msg_len = 0;
 			memcpy(&msg_len, _recv_head_node->_data + HEAD_ID_LEN, HEAD_DATA_LEN);
-			//ÍøÂç×Ö½ÚÐò×ª»¯Îª±¾µØ×Ö½ÚÐò
+			//     Ö½   ×ª  Îª     Ö½   
 			msg_len = boost::asio::detail::socket_ops::network_to_host_short(msg_len);
 			std::cout << "msg_len is " << msg_len << endl;
 
-			//id·Ç·¨
+			//id Ç· 
 			if (msg_len > MAX_LENGTH) {
 				std::cout << "invalid data length is " << msg_len << endl;
 				_server->ClearSession(_uuid);
@@ -153,9 +153,9 @@ void CSession::AsyncReadBody(int total_len)
 			_recv_msg_node->_cur_len += bytes_transfered;
 			_recv_msg_node->_data[_recv_msg_node->_total_len] = '\0';
 			cout << "receive data is " << _recv_msg_node->_data << endl;
-			//´Ë´¦½«ÏûÏ¢Í¶µÝµ½Âß¼­¶ÓÁÐÖÐ
-			//LogicSystem£º£ºGetInstance()
-			//¼ÌÐø¼àÌýÍ·²¿½ÓÊÕÊÂ¼þ
+			// Ë´     Ï¢Í¶ Ýµ  ß¼       
+			//LogicSystem::GetInstance();
+			//        Í·       Â¼ 
 			AsyncReadHead(HEAD_TOTAL_LEN);
 		}
 		catch (std::exception& e) {
@@ -178,25 +178,25 @@ void CSession::asyncReadLen(std::size_t read_len, std::size_t total_len,
 	_socket.async_read_some(boost::asio::buffer(_data + read_len, total_len - read_len),
 		[read_len, total_len, handler, self](const boost::system::error_code& ec, std::size_t bytesTransfered) {
 			if (ec) {
-				//³öÏÖ´íÎó£¬µ÷ÓÃ»Øµ÷º¯Êý
+				//   Ö´  ó£¬µ  Ã»Øµ     
 				handler(ec, read_len + bytesTransfered);
 				return;
 			}
 
 			//if (read_len + bytesTransfered >= total_len) {
-			//	//³¤¶È¹»ÁË¾Íµ÷ÓÃ»Øµ÷º¯Êý
+			//	//   È¹  Ë¾Íµ  Ã»Øµ     
 			//	handler(ec, read_len + bytesTransfered);
 			//	return;
 			//}
 
-			//Ã»ÓÐ´íÎó£¬ÇÒ³¤¶È²»×ãÔò¼ÌÐø¶ÁÈ¡
+			//Ã» Ð´    Ò³  È²          È¡
 			self->asyncReadLen(read_len + bytesTransfered, total_len, handler);
 		});
 }
 
 void CSession::HandleWrite(const boost::system::error_code& error, std::shared_ptr<CSession> shared_self)
 {
-	//Ôö¼ÓÒì³£´¦Àí
+	//     ì³£    
 	try {
 		if (!error) {
 			std::lock_guard<std::mutex> lock(_send_lock);
