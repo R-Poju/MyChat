@@ -36,4 +36,3 @@ private:
 	std::unordered_map<int, std::string> _tokens;
 	std::mutex _token_mtx;
 };
-
