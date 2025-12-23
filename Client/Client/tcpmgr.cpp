@@ -87,6 +87,40 @@ TcpMgr::TcpMgr(): _host(""), _port(0), _b_recv_pending(false), _message_id(0), _
     QObject::connect(this, &TcpMgr::sig_send_data, this, &TcpMgr::slot_send_data);
 }
 
+void TcpMgr::initHandlers()
+{
+    _handlers.insert(ID_CHAT_LOGIN_RSP, [this](ReqId id, int len, QByteArray data){
+        Q_UNUSED(len);
+        qDebug() << "handle id is " << id << " data is " << data;
+        //将QByteArray转换为QJsonDocument
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(data);
+
+        //检查是否转换成功
+        if(jsonDoc.isNull()){
+            qDebug() << "Failed to create QJsonDocument.";
+            return;
+        }
+
+        QJsonObject jsonObj = jsonDoc.object();
+
+        if(!jsonObj.contains("error")){
+            int err = ErrorCodes::ERR_JSON;
+            qDebug() << "Login Failed, err is Json Parse Err" << err;
+            emit sig_login_failed(err);
+            return;
+        }
+
+        int err = jsonObj["error"].toInt();
+        if(err != ErrorCodes::SUCCESS){
+            qDebug() << "Login Failed, err is " << err;
+            emit sig_login_failed(err);
+            return;
+        }
+
+        UserMgr
+    });
+}
+
 void TcpMgr::slot_tcp_connect(ServerInfo si)
 {
     qDebug() << "receive tcp connect signal";
