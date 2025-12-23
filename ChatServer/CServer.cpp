@@ -7,6 +7,17 @@ _acceptor(io_context, tcp::endpoint(tcp::v4(), port))
 	StartAccept();
 }
 
+CServer::~CServer()
+{
+	cout << "Server destruct listen on port : " << _port << endl;
+}
+
+void CServer::ClearSession(std::string uuid)
+{
+	lock_guard<mutex> lock(_mutex);
+	_sessions.erase(uuid);
+}
+
 void CServer::HandleAccept(shared_ptr<CSession> new_session, const boost::system::error_code& error)
 {
 	if (!error) {

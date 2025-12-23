@@ -1,5 +1,16 @@
 #pragma once
 #include "const.h"
+#include <thread>
+#include <jdbc/mysql_driver.h>
+#include <jdbc/mysql_connection.h>
+#include <jdbc/cppconn/prepared_statement.h>
+#include <jdbc/cppconn/resultset.h>
+#include <jdbc/cppconn/statement.h>
+#include <jdbc/cppconn/exception.h>
+#include "data.h"
+#include <memory>
+#include <queue>
+#include <mutex>
 
 class MySqlPool
 {
@@ -74,13 +85,6 @@ private:
 	std::atomic<bool> b_stop_;
 };
 
-struct UserInfo {
-	std::string name;
-	std::string pwd;
-	int uid;
-	std::string email;
-};
-
 class MysqlDao
 {
 public:
@@ -90,6 +94,7 @@ public:
 	bool CheckEmail(const std::string& name, const std::string& email);
 	bool UpdatePwd(const std::string& name, const std::string& newpwd);
 	bool CheckPwd(const std::string& email, const std::string& pwd, UserInfo& userInfo);
+	std::shared_ptr<UserInfo> GetUser(int uid);
 private:
 	std::unique_ptr<MySqlPool> pool_;
 };
