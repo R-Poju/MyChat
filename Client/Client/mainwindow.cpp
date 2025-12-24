@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "resetdialog.h"
-//#include "tcpmgr.h"
+#include "tcpmgr.h"
 #include <QLayout>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -20,14 +20,15 @@ MainWindow::MainWindow(QWidget *parent) :
     //连接登录界面忘记密码信号
     connect(_login_dlg, &LoginDialog::switchReset, this, &MainWindow::SlotSwitchReset);
     //连接创建聊天界面信号
-    //connect(TcpMgr::GetInstance().get(), )
+    connect(TcpMgr::GetInstance().get(), &TcpMgr::sig_switch_chatdlg, this, &MainWindow::SlotSwitchChat);
 
+    //方便测试
+    emit TcpMgr::GetInstance()->sig_switch_chatdlg();
 
 //    qDebug() << "输出当前QT支持的openSSL版本: " << QSslSocket::sslLibraryBuildVersionString();
 //    qDebug() << "OpenSSL支持情况: " <<QSslSocket::supportsSsl();
 //    qDebug() << "OpenSSL运行时SSL库版本: " << QSslSocket::sslLibraryBuildVersionString();
-
-    //将此代码置于QT中运行即可诊断是否缺少OPenSSL库
+//    将此代码置于QT中运行即可诊断是否缺少OpenSSL库
 }
 
 MainWindow::~MainWindow()
@@ -93,6 +94,17 @@ void MainWindow::SlotSwitchLogin2()
     connect(_login_dlg, &LoginDialog::switchReset, this, &MainWindow::SlotSwitchReset);
     //连接登录界面注册信号
     connect(_login_dlg, &LoginDialog::switchRegister, this, &MainWindow::SlotSwitchReg);
+}
+
+void MainWindow::SlotSwitchChat()
+{
+    _chat_dlg = new ChatDialog();
+    _chat_dlg->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
+    setCentralWidget(_chat_dlg);
+    _chat_dlg->show();
+    _login_dlg->hide();
+    this->setMaximumSize(QSize(1050, 900));
+    this->setMaximumSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
 }
 
 

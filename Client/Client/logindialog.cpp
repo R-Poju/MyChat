@@ -78,6 +78,13 @@ bool LoginDialog::checkPwdValid()
     return true;
 }
 
+bool LoginDialog::enableBtn(bool enabled)
+{
+    ui->login_btn->setEnabled(enabled);
+    ui->reg_btn->setEnabled(enabled);
+    return true;
+}
+
 void LoginDialog::slot_forget_pwd()
 {
     qDebug()<<"slot forget pwd";
@@ -152,6 +159,13 @@ void LoginDialog::slot_tcp_con_finish(bool bsuccess)
         showTip(tr("网络异常"), false);
         //enableBtn(true);
     }
+}
+
+void LoginDialog::slot_login_failed(int err)
+{
+    QString result = QString("登录失败，err is %1").arg(err);
+    showTip(result, false);
+    enableBtn(true);
 }
 
 void LoginDialog::showTip(QString str, bool b_ok)

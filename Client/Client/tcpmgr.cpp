@@ -1,4 +1,6 @@
 #include "tcpmgr.h"
+#include <QAbstractSocket>
+#include "usermgr.h"
 
 TcpMgr::TcpMgr(): _host(""), _port(0), _b_recv_pending(false), _message_id(0), _message_len(0)
 {
@@ -41,7 +43,7 @@ TcpMgr::TcpMgr(): _host(""), _port(0), _b_recv_pending(false), _message_id(0), _
                 return;
             }
 
-            _b_recv_pending = false;
+            _b_recv_pending = false;    //继续更新头部结点处理标记
             //读取消息体
             QByteArray messageBody = _buffer.mid(0, _message_len);
             qDebug() << "receive body msg is " << messageBody;
@@ -83,8 +85,15 @@ TcpMgr::TcpMgr(): _host(""), _port(0), _b_recv_pending(false), _message_id(0), _
     QObject::connect(&_socket, &QTcpSocket::disconnected, [&](){
         qDebug() << "Disconnected from server.";
     });
-
+    //连接发送信号用来发送数据
     QObject::connect(this, &TcpMgr::sig_send_data, this, &TcpMgr::slot_send_data);
+    //注册消息
+    initHandlers();
+}
+
+TcpMgr::~TcpMgr()
+{
+
 }
 
 void TcpMgr::initHandlers()
@@ -117,8 +126,22 @@ void TcpMgr::initHandlers()
             return;
         }
 
-        UserMgr
+        UserMgr::GetInstance()->SetUid(jsonObj["uid"].toInt());
+        UserMgr::GetInstance()->SetName(jsonObj["name"].toString());
+        UserMgr::GetInstance()->SetToken(jsonObj["token"].toString());
+        emit sig_switch_chatdlg();
     });
+}
+
+void TcpMgr::handleMsg(ReqId id, int len, QByteArray data)
+{
+    auto find_iter = _handlers.find(id);
+    if(find_iter == _handlers.end()){
+        qDebug() << "not found id [" << id << "] to handle";
+        return;
+    }
+
+    find_iter.value()(id, len, data);
 }
 
 void TcpMgr::slot_tcp_connect(ServerInfo si)

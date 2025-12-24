@@ -23,7 +23,7 @@ private:
     bool checkPwdValid();
     Ui::LoginDialog *ui;
     QMap<ReqId, std::function<void(const QJsonObject&)>> _handlers;
-    bool enableBtn(bool);
+    bool enableBtn(bool enabled);
     QMap<TipErr, QString> _tip_errs;
     void AddTipErr(TipErr te,QString tips);
     void DelTipErr(TipErr te);
@@ -34,7 +34,7 @@ private slots:
     void on_login_btn_clicked();
     void slot_login_mod_finish(ReqId id, QString res, ErrorCodes err);
     void slot_tcp_con_finish(bool bsuccess);
-//    void slot_login_failed(int);
+    void slot_login_failed(int err);
 signals:
     void switchRegister();
     void switchReset();
