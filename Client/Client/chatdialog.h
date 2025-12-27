@@ -26,6 +26,8 @@ public:
 private:
     Ui::ChatDialog *ui;
     //void AddLBGroup(StateLabel* lb);
+    void ShowSearch(bool bsearch = false);
+    ChatUIMode _mode;
 };
 
 #endif // CHATDIALOG_H
