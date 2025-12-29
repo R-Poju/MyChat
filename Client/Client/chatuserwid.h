@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "listitembase.h"
+
 namespace Ui {
 class ChatUserWid;
 }

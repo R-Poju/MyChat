@@ -25,8 +25,10 @@ SOURCES += \
     logindialog.cpp \
     main.cpp \
     mainwindow.cpp \
+    messagetextedit.cpp \
     registerdialog.cpp \
     resetdialog.cpp \
+    statelabel.cpp \
     tcpmgr.cpp \
     timerbtn.cpp \
     usermgr.cpp
@@ -43,9 +45,11 @@ HEADERS += \
     listitembase.h \
     logindialog.h \
     mainwindow.h \
+    messagetextedit.h \
     registerdialog.h \
     resetdialog.h \
     singleton.h \
+    statelabel.h \
     tcpmgr.h \
     timerbtn.h \
     usermgr.h
