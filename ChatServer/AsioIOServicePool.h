@@ -23,4 +23,3 @@ private:
 	std::vector<std::thread> _threads;
 	std::size_t _nextIOServices;
 };
-

@@ -7,6 +7,7 @@
 #include "ConfigMgr.h"
 
 using namespace std;
+
 bool bstop = false;
 std::condition_variable cond_quit;
 std::mutex mutex_quit;
