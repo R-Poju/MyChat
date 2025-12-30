@@ -11,7 +11,7 @@
 //#include "TextBubble.h"
 //#include "PictureBubble.h"
 //#include "MessageTextEdit.h"
-//#include "loadingdlg.h"
+#include "loadingdlg.h"
 
 
 ChatDialog::ChatDialog(QWidget *parent) :
@@ -24,7 +24,40 @@ ChatDialog::ChatDialog(QWidget *parent) :
     ui->add_btn->setProperty("state","normal");
 
     QAction* searchAction = new QAction(ui->search_edit);
+    searchAction->setIcon(QIcon(":/res/search.png"));
 
+    ui->search_edit->addAction(searchAction, QLineEdit::LeadingPosition);
+    ui->search_edit->setPlaceholderText(QStringLiteral("搜索"));
+
+
+    //创建一个清除动作并设置图标
+    QAction* clearAction = new QAction(ui->search_edit);
+    clearAction->setIcon(QIcon(":/res/close_transparent.png"));
+
+    //初始时不显示清除图标
+    //将清除动作添加到LineEdit的末尾位置
+    ui->search_edit->addAction(clearAction, QLineEdit::TrailingPosition);
+
+    //当需要显示清除图标时，更改为实际的清除图标
+    connect(ui->search_edit, &QLineEdit::textChanged, [clearAction](const QString& text){
+       if(!text.isEmpty()){
+           clearAction->setIcon(QIcon(":/res/close_search.png"));
+
+       }else{
+           clearAction->setIcon(QIcon(":/res/close_transparent.png"));
+       }
+
+    });
+
+    //连接清除动作的触发信号到槽函数，用于清除文本
+    connect(clearAction, &QAction::triggered, [this, clearAction](){
+       ui->search_edit->clear();
+       clearAction->setIcon(QIcon(":/res/close_transparent.png"));  //清除文本后，切换回透明图标
+       ui->search_edit->clearFocus();
+
+    });
+
+    ui->search_edit->SetMaxLength(15);
 }
 
 ChatDialog::~ChatDialog()
@@ -43,6 +76,24 @@ void ChatDialog::ShowSearch(bool bsearch)
         ui->search_list->hide();
         _mode = ChatUIMode::ChatMode;
     }
+}
+
+void ChatDialog::slot_loading_chat_user()
+{
+    if(_b_loading){
+        return;
+    }
+
+    _b_loading = true;
+    LoadingDlg* loadingDialog = new LoadingDlg(this);
+    loadingDialog->setModal(true);
+    loadingDialog->show();
+    qDebug() << "add new data to list......";
+    addChatUserList();
+    //加载完成后，关闭对话框
+    loadingDialog->deleteLater();
+
+    _b_loading = false;
 }
 
 

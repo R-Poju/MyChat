@@ -13,6 +13,9 @@ public:
 
     ListItemType GetItemType();
 
+protected:
+    void paintEvent(QPaintEvent *event);
+
 private:
     ListItemType _itemType;
 

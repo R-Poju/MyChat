@@ -12,7 +12,7 @@ void ClickedLabel::mousePressEvent(QMouseEvent* event)  {
         if(_curstate == ClickLbState::Normal){
             // qDebug()<<"PressEvent , change to selected press: "<< _selected_press;
             _curstate = ClickLbState::Selected;
-            setProperty("state",_selected_press);
+            setProperty("state", _selected_press);
             repolish(this);
             update();
 
