@@ -31,51 +31,97 @@ ChatView::ChatView(QWidget* parent)
     connect(pVScrollBar, &QScrollBar::rangeChanged, this, &ChatView::onVScrollBarMoved);
     //把垂直ScrollBar放到上边，而不是原来的并排
     QHBoxLayout* pHLayout_2 = new QHBoxLayout();
-    pHLayout_2
+    pHLayout_2->addWidget(pVScrollBar, 0, Qt::AlignRight);
+    pHLayout_2->setMargin(0);
+    m_pScrollArea->setLayout(pHLayout_2);
+    pVScrollBar->setHidden(true);
+
+    m_pScrollArea->setWidgetResizable(true);
+    m_pScrollArea->installEventFilter(this);
+    initStyleSheet();
+
 }
 
+void ChatView::appendChatItem(QWidget* item)
+{
+    QVBoxLayout* vl = qobject_cast<QVBoxLayout*>(m_pScrollArea->widget()->layout());
+    vl->insertWidget(vl->count()-1, item);
+    isAppended = true;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-ChatView::ChatView(QWidget *parent)
+void ChatView::prependChatItem(QWidget* item)
 {
 
 }
+
+void ChatView::insertChatItem(QWidget* before, QWidget* item)
+{
+
+}
+
+bool ChatView::eventFilter(QObject* o, QEvent* e)
+{
+    if(e->type() == QEvent::Enter && o == m_pScrollArea)
+    {
+        m_pScrollArea->verticalScrollBar()->setHidden(m_pScrollArea->verticalScrollBar()->maximum() == 0);
+    }
+    else if(e->type() == QEvent::Leave && o == m_pScrollArea)
+    {
+        m_pScrollArea->verticalScrollBar()->setHidden(true);
+    }
+    return QWidget::eventFilter(o, e);
+}
+
+void ChatView::pointEvent(QPaintEvent* event)
+{
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+}
+
+void ChatView::onVScrollBarMoved(int min, int max)
+{
+    if(isAppended)
+    {
+        QScrollBar* pVScrollBar = m_pScrollArea->verticalScrollBar();
+        pVScrollBar->setSliderPosition(pVScrollBar->maximum());
+        //500毫秒内可能调用多次
+        QTimer::singleShot(500, [this](){
+           isAppended = false;
+        });
+    }
+}
+
+void ChatView::initStyleSheet()
+{
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
