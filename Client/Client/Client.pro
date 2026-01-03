@@ -13,7 +13,9 @@ RC_ICONS = icon.ico
 DESTDIR = ./bin
 
 SOURCES += \
+    bubbleframe.cpp \
     chatdialog.cpp \
+    chatitembase.cpp \
     chatpage.cpp \
     chatuserlist.cpp \
     chatuserwid.cpp \
@@ -37,7 +39,9 @@ SOURCES += \
     usermgr.cpp
 
 HEADERS += \
+    bubbleframe.h \
     chatdialog.h \
+    chatitembase.h \
     chatpage.h \
     chatuserlist.h \
     chatuserwid.h \

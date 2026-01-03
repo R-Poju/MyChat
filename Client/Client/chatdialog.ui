@@ -289,6 +289,9 @@
        <widget class="SearchList" name="search_list"/>
       </item>
       <item>
+       <widget class="ContactUserList" name="con_user_list"/>
+      </item>
+      <item>
        <widget class="ChatUserList" name="chat_user_list">
         <property name="minimumSize">
          <size>
@@ -304,9 +307,6 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="ContactUserList" name="con_user_list"/>
-      </item>
      </layout>
     </widget>
    </item>
@@ -319,7 +319,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="ChatPage" name="chat_page"/>
      <widget class="ApplyFriendPage" name="friend_apply_page">
