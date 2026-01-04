@@ -31,10 +31,12 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     messagetextedit.cpp \
+    picturebubble.cpp \
     registerdialog.cpp \
     resetdialog.cpp \
     statelabel.cpp \
     tcpmgr.cpp \
+    textbubble.cpp \
     timerbtn.cpp \
     usermgr.cpp
 
@@ -56,11 +58,13 @@ HEADERS += \
     logindialog.h \
     mainwindow.h \
     messagetextedit.h \
+    picturebubble.h \
     registerdialog.h \
     resetdialog.h \
     singleton.h \
     statelabel.h \
     tcpmgr.h \
+    textbubble.h \
     timerbtn.h \
     usermgr.h
 
