@@ -96,8 +96,30 @@ void ChatDialog::slot_loading_chat_user()
     _b_loading = false;
 }
 
+void ChatDialog::slot_side_chat()
+{
+    qDebug() << "receive side chat clicked";
+    clearLabelState(ui->side_chat_lb);
+    ui->stackedWidget->setCurrentWidget(ui->chat_page);
+    _state = ChatUIMode::ChatMode;
+    ShowSearch(false);
+}
 
+void ChatDialog::clearLabelState(StateLabel *lb)
+{
+    for(auto& ele : _lb_list){
+        if(ele == lb){
+            continue;
+        }
 
+        ele->ClearState();
+    }
+}
+
+void ChatDialog::AddLBGroup(StateWidget* lb)
+{
+     _lb_list.push_back(lb);
+}
 
 
 
