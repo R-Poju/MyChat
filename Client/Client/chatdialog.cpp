@@ -65,6 +65,33 @@ ChatDialog::~ChatDialog()
     delete ui;
 }
 
+bool ChatDialog::eventFilter(QObject *watched, QEvent *event)
+{
+    if(event->type() == QEvent::MouseButtonPress){
+        QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
+        handleGlobalMousePress(mouseEvent);
+    }
+    return QDialog::eventFilter(watched, event);
+}
+
+void ChatDialog::handleGlobalMousePress(QMouseEvent *event)
+{
+    //实现点击位置的判断和处理逻辑
+    //先判断是否处搜索模式，如果不处于搜索模式则直接返回
+    if(_mode != ChatUIMode::SearchMode){
+        return;
+    }
+
+    //将鼠标点击位置转换为搜索列表坐标系中的位置
+    QPoint posInSearchList = ui->search_list->mapFromGlobal(event->globalPos());
+    //判断点击位置是否在聊天列表范围内
+    if(!ui->search_list->rect().contains(posInSearchList)){
+        //如果不在聊天列表内，则清空输入框
+        ui->search_edit->clear();
+        ShowSearch(false);
+    }
+}
+
 void ChatDialog::ShowSearch(bool bsearch)
 {
     if(bsearch){

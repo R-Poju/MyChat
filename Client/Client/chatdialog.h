@@ -21,8 +21,8 @@ public:
     ~ChatDialog();
 
 protected:
-//    bool eventFilter(QObject* watched, QEvent* event) override;
-//    void handleGlobalMousePress(QMouseEvent* event);
+    bool eventFilter(QObject* watched, QEvent* event) override;
+    void handleGlobalMousePress(QMouseEvent* event);
     void CloseFindDlg();
 private:
     Ui::ChatDialog* ui;
