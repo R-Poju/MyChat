@@ -34,6 +34,7 @@ SOURCES += \
         TextBubble.cpp \
         adduseritem.cpp \
         applyfriend.cpp \
+        applyfriend.cpp \
         applyfrienditem.cpp \
         applyfriendlist.cpp \
         applyfriendpage.cpp \
@@ -44,6 +45,7 @@ SOURCES += \
         chatuserwid.cpp \
         clickedbtn.cpp \
         clickedlabel.cpp \
+        clickedoncelabel.cpp \
         clickedoncelabel.cpp \
         contactuserlist.cpp \
         conuseritem.cpp \
@@ -81,6 +83,7 @@ HEADERS += \
         TextBubble.h \
         adduseritem.h \
         applyfriend.h \
+        applyfriend.h \
         applyfrienditem.h \
         applyfriendlist.h \
         applyfriendpage.h \
@@ -91,6 +94,7 @@ HEADERS += \
         chatuserwid.h \
         clickedbtn.h \
         clickedlabel.h \
+        clickedoncelabel.h \
         clickedoncelabel.h \
         contactuserlist.h \
         conuseritem.h \
@@ -121,6 +125,7 @@ HEADERS += \
 
 FORMS += \
         adduseritem.ui \
+        applyfriend.ui \
         applyfriend.ui \
         applyfrienditem.ui \
         applyfriendpage.ui \
