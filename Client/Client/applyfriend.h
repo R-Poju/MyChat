@@ -41,7 +41,7 @@ public slots:
     void ShowMoreLabel();
     void SlotLabelEnter();
     void SlotRemoveFriendLabel(QString);
-    void SlotChangeFriendLabelByTip(QString, ClickLbState);
+    void SlotChangeFriendLabelByTip(QString lbtext, ClickLbState state);
     void SlotLabelTextChange(const QString& text);
     void SlotLabelEditFinished();
     void SlotAddFriendLabelByClickTip(QString text);

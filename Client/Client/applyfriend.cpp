@@ -319,6 +319,226 @@ void ApplyFriend::SlotLabelEnter()
     ui->scrollcontent->setFixedHeight(ui->scrollcontent->height() + diff_height);
 }
 
+void ApplyFriend::SlotRemoveFriendLabel(QString)
+{
+    qDebug() << "receive close signal";
+
+    _label_point.setX(2);
+    _label_point.setY(6);
+
+    auto find_iter = _friend_labels.find(name);
+
+    if(find_iter == _friend_labels.end()){
+        return;
+    }
+
+    auto find_key = _friend_label_keys.end();
+    for(auto iter = _friend_label_keys.begin(); iter != _friend_label_keys.end(); iter++){
+        if(*iter == name){
+            find_key = iter;
+            break;
+        }
+    }
+
+    if(find_key != _friend_label_keys.end()){
+        _friend_label_keys.erase(find_key);
+    }
+
+    delete find_iter.value();
+
+    _friend_labels.erase(find_iter);
+
+    resetLabels();
+
+    auto find_add = _add_labels.find(name);
+    if(find_add == _add_labels.end()){
+        return;
+    }
+
+    find_add.value()->ResetNormalState();
+}
+
+void ApplyFriend::SlotChangeFriendLabelByTip(QString lbtext, ClickLbState state)
+{
+    auto find_iter = _add_labels.find(lbtext);
+    if(find_iter == _add_labels.end()){
+        return;
+    }
+
+    if(state == ClickLbState::Selected){
+        addLabel(lbtext);
+        return;
+    }
+
+    if(state == ClickLbState::Normal){
+        SlotRemoveFriendLabel(lbtext);
+        return;
+    }
+}
+
+void ApplyFriend::SlotLabelTextChange(const QString& text)
+{
+    if(text.isEmpty()){
+        ui->tip_lb->setText("");
+        ui->input_tip_wid->hide();
+        return;
+    }
+
+    auto iter = std::find(_tip_data.begin(), _tip_data.end(), text);
+    if(iter == _tip_data.end()){
+        auto new_text = add_prefix + text;
+        ui->tip_lb->setText(new_text);
+        ui->input_tip_wid->show();
+        return;
+    }
+    ui->tip_lb->setText(text);
+    ui->input_tip_wid->show();
+}
+
+void ApplyFriend::SlotLabelEditFinished()
+{
+    ui->input_tip_wid->hide();
+}
+
+void ApplyFriend::SlotAddFriendLabelByClickTip(QString text)
+{
+    int index = text.indexOf(add_prefix);
+    if(index != -1){
+        text = text.mid(index + add_prefix.length());
+    }
+    addLabel(text);
+
+    auto find_it = std::find(_tip_data.begin(), _tip_data.end(), text);
+    if(find_it == _tip_data.end()){
+        _tip_data.push_back(text);
+    }
+
+    auto find_add = _add_labels.find(text);
+    if(find_add != _add_labels.end()){
+        find_add.value()->SetCurState(ClickLbState::Selected);
+        return;
+    }
+
+    auto* lb = new ClickedLabel(ui->lb_list);
+    lb->SetState("normal", "hover", "pressed", "selected_normal",
+                 "selected_hover", "selected_pressed");
+    lb->setObjectName("tipslb");
+    lb->setText(text);
+    connect(lb, &ClickedLabel::clicked, this, &ApplyFriend::SlotChangeFriendLabelByTip);
+    qDebug() << "ui->lb_list->width() is " << ui->lb_list->width();
+    qDebug() << "_tip_cur_point.x() is " << _tip_cur_point.x();
+
+    QFontMetrics fontMetrics(lb->font());
+    int textWidth = fontMetrics.width(lb->text());
+    int textHeight = fontMetrics.height();
+    qDebug() << "textWidth is " << textWidth;
+
+    if(_tip_cur_point.x() + textWidth + tip_offset + 3 > ui->lb_list->width()){
+        _tip_cur_point.setX(5);
+        _tip_cur_point.setY(_tip_cur_point.y() + textHeight + 15);
+    }
+
+    auto next_point = _tip_cur_point;
+
+    AddTipLbs(lb, _tip_cur_point, next_point, textWidth, textHeight);
+    _tip_cur_point = next_point;
+
+    int diff_height = next_point.y() + textHeight + tip_offset - ui->lb_list->height();
+    ui->lb_list->setFixedHeight(next_point.y() + textHeight + tip_offset);
+
+    lb->SetCurState(ClickLbState::Selected);
+
+    ui->scrollcontent->setFixedHeight(ui->scrollcontent->height() + diff_height);
+}
+
+void ApplyFriend::SlotApplySure()
+{
+    qDebug() << "Slot Apply Sure called";
+
+    QJsonObject jsonObj;
+    auto uid = UserMgr::GetInstance()->GetUid();
+    jsonObj["uid"] = uid;
+    auto name = ui->name_ed->text();
+    if(name.isEmpty()){
+        name = ui->name_ed->placeholderText();
+    }
+
+    jsonObj["applyname"] = name;
+
+    auto bakname = ui->back_ed->text();
+    if(bakname.isEmpty()){
+        bakname = ui->back_ed->placeholderText();
+    }
+
+    jsonObj["bakname"] = bakname;
+    jsonObj["touid"] = _si->_uid;
+
+    QJsonDocument doc(jsonObj);
+    QString jsonString = doc.toJson(QJsonDocument::Indented);
+
+    emit TcpMgr::GetInstance()->sig_sent_data(ReqId::ID_ADD_FRIEND_REQ, jsonString);
+    this->hide();
+    deleteLater();
+}
+
+void ApplyFriend::SlotApplyCancel()
+{
+    qDebug() << "Slot Apply Cancel";
+    this->hide();
+    deleteLater();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

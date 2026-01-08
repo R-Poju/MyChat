@@ -106,5 +106,42 @@ ClickLbState ClickedLabel::GetCurState(){
     return _curstate;
 }
 
+void ClickedLabel::ResetNormalState()
+{
+    _curstate = ClickLbState::Normal;
+    setProperty("state", _normal);
+    repolish(this);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
