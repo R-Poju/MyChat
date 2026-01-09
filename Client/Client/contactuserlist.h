@@ -1,11 +1,100 @@
 #ifndef CONTACTUSERLIST_H
 #define CONTACTUSERLIST_H
 
+#include <QListWidget>
+#include <QWheelEvent>
+#include <QScrollBar>
+#include <QDebug>
 
-class ContactUserList
+class ConUserItem;
+
+class ContactUserList :public QListWidget
 {
+    Q_OBJECT
 public:
-    ContactUserList();
+    ContactUserList(QWidget* parent = nullptr);
+    void ShowRedPoint(bool bshow = true);
+
+protected:
+    bool eventFilter(QObject* object, QEvent* event) override;
+
+private:
+    void addContactUserList();
+
+public slots:
+    void slot_item_clicked(QListWidgetItem* item);
+
+signals:
+    void sig_loading_contact_user();
+    void sig_switch_apply_friend_page();
+
+private:
+    ConUserItem* _add_friend_item;
 };
 
 #endif // CONTACTUSERLIST_H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

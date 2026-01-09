@@ -1,22 +1,58 @@
 #ifndef CONUSERITEM_H
 #define CONUSERITEM_H
 
-#include <QDialog>
+#include <QWidget>
+#include "listitembase.h"
 
 namespace Ui {
 class ConUserItem;
 }
 
-class ConUserItem : public QDialog
+class ConUserItem :public ListItemBase
 {
     Q_OBJECT
 
 public:
-    explicit ConUserItem(QWidget *parent = nullptr);
+    explicit ConUserItem(QWidget* parent = nullptr);
     ~ConUserItem();
+    void SetInfo(QString name, QString head);
+    void ShowRedPoint(bool show = false);
 
 private:
     Ui::ConUserItem *ui;
+    QString _name;
+    QString _head;
 };
 
 #endif // CONUSERITEM_H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

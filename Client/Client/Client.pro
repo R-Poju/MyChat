@@ -36,8 +36,11 @@ SOURCES += \
         applyfriend.cpp \
         applyfriend.cpp \
         applyfrienditem.cpp \
+        applyfrienditem.cpp \
         applyfriendlist.cpp \
         applyfriendpage.cpp \
+        applyfriendpage.cpp \
+        authenfriend.cpp \
         authenfriend.cpp \
         chatdialog.cpp \
         chatpage.cpp \
@@ -48,13 +51,17 @@ SOURCES += \
         clickedoncelabel.cpp \
         clickedoncelabel.cpp \
         contactuserlist.cpp \
+        contactuserlist.cpp \
+        conuseritem.cpp \
         conuseritem.cpp \
         customizeedit.cpp \
         customizetextedit.cpp \
         findfaildlg.cpp \
         findsuccessdlg.cpp \
         friendlabel.cpp \
+        friendlabel.cpp \
         global.cpp \
+        grouptipitem.cpp \
         grouptipitem.cpp \
         httpmgr.cpp \
         invaliditem.cpp \
@@ -85,8 +92,11 @@ HEADERS += \
         applyfriend.h \
         applyfriend.h \
         applyfrienditem.h \
+        applyfrienditem.h \
         applyfriendlist.h \
         applyfriendpage.h \
+        applyfriendpage.h \
+        authenfriend.h \
         authenfriend.h \
         chatdialog.h \
         chatpage.h \
@@ -97,13 +107,17 @@ HEADERS += \
         clickedoncelabel.h \
         clickedoncelabel.h \
         contactuserlist.h \
+        contactuserlist.h \
+        conuseritem.h \
         conuseritem.h \
         customizeedit.h \
         customizetextedit.h \
         findfaildlg.h \
         findsuccessdlg.h \
         friendlabel.h \
+        friendlabel.h \
         global.h \
+        grouptipitem.h \
         grouptipitem.h \
         httpmgr.h \
         invaliditem.h \
@@ -128,15 +142,21 @@ FORMS += \
         applyfriend.ui \
         applyfriend.ui \
         applyfrienditem.ui \
+        applyfrienditem.ui \
         applyfriendpage.ui \
+        applyfriendpage.ui \
+        authenfriend.ui \
         authenfriend.ui \
         chatdialog.ui \
         chatpage.ui \
         chatuserwid.ui \
         conuseritem.ui \
+        conuseritem.ui \
         findfaildlg.ui \
         findsuccessdlg.ui \
         friendlabel.ui \
+        friendlabel.ui \
+        grouptipitem.ui \
         grouptipitem.ui \
         lineitem.ui \
         loadingdlg.ui \
