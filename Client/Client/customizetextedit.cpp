@@ -1,6 +1,6 @@
 #include "customizetextedit.h"
 
-CustomizeTextEdit::CustomizeTextEdit()
+CustomizeTextEdit::CustomizeTextEdit(QWidget *parent):QTextEdit (parent)
 {
 
 }

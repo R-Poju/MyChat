@@ -1,11 +1,63 @@
 #ifndef INVALIDITEM_H
 #define INVALIDITEM_H
 
+#include <QWidget>
+#include "listitembase.h"
 
-class InvalidItem
+class InvalidItem :public ListItemBase
 {
+    Q_OBJECT
 public:
-    InvalidItem();
+    explicit InvalidItem(QWidget* parent = nullptr);
+    QSize sizeHint() const override{
+        return QSize(250, 10);
+    }
+
+signals:
+
+public slots:
+
 };
 
 #endif // INVALIDITEM_H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

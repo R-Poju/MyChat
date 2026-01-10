@@ -1,22 +1,59 @@
 #ifndef LINEITEM_H
 #define LINEITEM_H
 
-#include <QDialog>
+#include <QWidget>
+#include "listitembase.h"
 
 namespace Ui {
 class LineItem;
 }
 
-class LineItem : public QDialog
+class LineItem :public ListItemBase
 {
     Q_OBJECT
 
 public:
-    explicit LineItem(QWidget *parent = nullptr);
+    explicit LineItem(QWidget* parent = nullptr);
     ~LineItem();
+    QSize sizeHint() const override;
 
 private:
-    Ui::LineItem *ui;
+    Ui::LineItem* ui;
 };
 
 #endif // LINEITEM_H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

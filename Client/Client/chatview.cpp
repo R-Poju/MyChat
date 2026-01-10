@@ -18,7 +18,7 @@ ChatView::ChatView(QWidget* parent)
     m_pScrollArea->setObjectName("chat_area");
     pMainLayout->addWidget(m_pScrollArea);
 
-    QWidget* W = new QWidget(this);
+    QWidget* w = new QWidget(this);
     w->setObjectName("chat_bg");
     w->setAutoFillBackground(true);
     QVBoxLayout* pHLayout_1 = new QVBoxLayout();
@@ -72,12 +72,12 @@ bool ChatView::eventFilter(QObject* o, QEvent* e)
     return QWidget::eventFilter(o, e);
 }
 
-void ChatView::pointEvent(QPaintEvent* event)
+void ChatView::paintEvent(QPaintEvent* event)
 {
     QStyleOption opt;
     opt.init(this);
     QPainter p(this);
-    style->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
 void ChatView::onVScrollBarMoved(int min, int max)

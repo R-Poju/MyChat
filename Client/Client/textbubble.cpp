@@ -44,7 +44,7 @@ void TextBubble::setPlainText(const QString& text)
     setMaximumWidth(max_width + doc_margin * 2 + (margin_left + margin_right));
 }
 
-bool TextBubble::eventFilter(QOject* o, QEvent* e)
+bool TextBubble::eventFilter(QObject* o, QEvent* e)
 {
     if(m_pTextEdit == o && e->type() == QEvent::Paint)
     {
@@ -95,21 +95,3 @@ void TextBubble::initStyleSheet()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-TextBubble::TextBubble(ChatRole role, const QString &text, QWidget *parent)
-{
-
-}

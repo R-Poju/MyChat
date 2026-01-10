@@ -15,6 +15,7 @@ class FriendLabel :public QFrame
 public:
     explicit FriendLabel(QWidget* parent = nullptr);
     ~FriendLabel();
+    void SetText(QString text);
     int Width();
     int Height();
     QString Text();
@@ -26,7 +27,7 @@ private:
     int _height;
 
 public slots:
-    void slot_close;
+    void slot_close();
 
 signals:
     void sig_close(QString);

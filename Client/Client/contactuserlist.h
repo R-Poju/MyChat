@@ -16,7 +16,7 @@ public:
     void ShowRedPoint(bool bshow = true);
 
 protected:
-    bool eventFilter(QObject* object, QEvent* event) override;
+    bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
     void addContactUserList();

@@ -1,11 +1,48 @@
 #include "applyfriendlist.h"
+#include <QWheelEvent>
+#include <QScrollBar>
+#include "listitembase.h"
 
-ApplyFriendList::ApplyFriendList()
+ApplyFriendList::ApplyFriendList(QWidget* parent)
 {
-
+    Q_UNUSED(parent);
+    this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    //安装事件过滤器
+    this->viewport()->installEventFilter(this);
 }
 
+bool ApplyFriendList::eventFilter(QObject* watched, QEvent* event)
+{
+    //检查事件是否是鼠标悬浮进入或离开
+    if(watched == this->viewport()){
+        if(event->type() == QEvent::Enter){
+            this->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        }
+        else if(event->type() == QEvent::Leave){
+            this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        }
+    }
 
+    if(watched == this->viewport()){
+        if(event->type() == QEvent::MouseButtonPress){
+            emit sig_show_search(false);
+        }
+    }
+
+    //检查事件是否是鼠标滚轮事件
+    if(watched == this->viewport() && event->type() == QEvent::Wheel){
+        QWheelEvent* wheelEvent = static_cast<QWheelEvent*>(event);
+        int numDegrees = wheelEvent->angleDelta().y() / 8;
+        int numSteps = numDegrees / 15;
+
+        this->verticalScrollBar()->setValue(this->verticalScrollBar()->value() - numSteps);
+
+        return true;
+    }
+
+    return QListWidget::eventFilter(watched, event);
+}
 
 
 

@@ -15,32 +15,26 @@ class AuthenFriend : public QDialog
     Q_OBJECT
 
 public:
-    explicit AuthenFriend(QWidget* parent = nullptr);
+    explicit AuthenFriend(QWidget *parent = nullptr);
     ~AuthenFriend();
 
     void InitTipLbs();
-    void AddTipLbs(ClickedLabel* lb, QPoint cur_point, QPoint& next_point, int text_width, int text_height);
-    bool eventFilter(QObject* obj, QEvent* event);
+    void AddTipLbs(ClickedLabel*, QPoint cur_point, QPoint &next_point, int text_width, int text_height);
+    bool eventFilter(QObject *obj, QEvent *event);
     void SetApplyInfo(std::shared_ptr<ApplyInfo> apply_info);
-
 private:
-    Ui::AuthenFriend *ui;
-    std::shared_ptr<ApplyInfo> _apply_info;
-
     void resetLabels();
 
     //已经创建好的标签
     QMap<QString, ClickedLabel*> _add_labels;
     std::vector<QString> _add_label_keys;
     QPoint _label_point;
-
     //用来在输入框显示添加新好友的标签
     QMap<QString, FriendLabel*> _friend_labels;
     std::vector<QString> _friend_label_keys;
     void addLabel(QString name);
     std::vector<QString> _tip_data;
     QPoint _tip_cur_point;
-
 public slots:
     //显示更多label标签
     void ShowMoreLabel();
@@ -60,27 +54,10 @@ public slots:
     void SlotApplySure();
     //处理取消回调
     void SlotApplyCancel();
-
+   
+private:
+ 	std::shared_ptr<ApplyInfo> _apply_info;
+    Ui::AuthenFriend *ui;
 };
 
 #endif // AUTHENFRIEND_H
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

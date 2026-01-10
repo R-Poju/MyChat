@@ -17,5 +17,5 @@ std::function<QString(QString)> xorString = [](QString input){
     return result;
 };
 
-QString gate_url_prefix = "http://localhost:8080";
+QString gate_url_prefix = "";
 

@@ -16,7 +16,7 @@ public:
 
 protected:
     bool eventFilter(QObject* o, QEvent* e) override;
-    void pointEvent(QPaintEvent* event) override;
+    void paintEvent(QPaintEvent* event) override;
 
 private slots:
     void onVScrollBarMoved(int min, int max);

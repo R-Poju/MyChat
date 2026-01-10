@@ -76,6 +76,7 @@ struct ServerInfo{
 
 enum class ChatRole
 {
+
     Self,
     Other
 };
@@ -128,16 +129,17 @@ const std::vector<QString> heads = {
 };
 
 const std::vector<QString> names = {
-    "llfc",
-    "zack",
-    "golang",
-    "cpp",
-    "java",
-    "nodejs",
-    "python",
-    "rust"
+    "HanMeiMei",
+    "Lily",
+    "Ben",
+    "Androw",
+    "Max",
+    "Summer",
+    "Candy",
+    "Hunter"
 };
 
+const int CHAT_COUNT_PER_PAGE = 13;
 
 
 #endif // GLOBAL_H

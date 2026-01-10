@@ -33,7 +33,7 @@ void ContactUserList::addContactUserList()
 
     _add_friend_item = new ConUserItem();
     _add_friend_item->setObjectName("new_friend_item");
-    _add_friend_item->SetInfo(tr("新的朋友"), ":/res/add_friend.png");
+    _add_friend_item->SetInfo(0, tr("新的朋友"), ":/res/add_friend.png");
     _add_friend_item->SetItemType(ListItemType::APPLY_FRIEND_ITEM);
 
     QListWidgetItem* add_item = new QListWidgetItem;
@@ -53,13 +53,13 @@ void ContactUserList::addContactUserList()
 
     //创建QListWidgetItem, 并设置自定义的widget
     for(int i = 0; i < 13; i++){
-        int randowValue = QRandomGenerator::global()->bounded(100);
+        int randomValue = QRandomGenerator::global()->bounded(100);
         int str_i = randomValue%strs.size();
         int head_i = randomValue%heads.size();
         int name_i = randomValue%names.size();
 
         auto* con_user_wid = new ConUserItem();
-        con_user_wid->SetInfo(names[name_i], heads[head_i]);
+        con_user_wid->SetInfo(0, names[name_i], heads[head_i]);
         QListWidgetItem* item = new QListWidgetItem;
 
         item->setSizeHint(con_user_wid->sizeHint());
@@ -68,7 +68,7 @@ void ContactUserList::addContactUserList()
     }
 }
 
-bool ContactUserList::eventFilter(QObject* object, QEvent* event)
+bool ContactUserList::eventFilter(QObject* watched, QEvent* event)
 {
     //检查事件是否是鼠标悬浮进入或离开
     if(watched == this->viewport()){

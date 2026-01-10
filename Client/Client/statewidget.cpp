@@ -5,90 +5,101 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
-StateWidget::StateWidget(QWidget* parent)
+StateWidget::StateWidget(QWidget *parent) : QWidget(parent),_curstate(ClickLbState::Normal)
 {
     setCursor(Qt::PointingHandCursor);
     //添加红点
     AddRedPoint();
 }
 
-void StateWidget::paintEvent(QPaintEvent* event)
+void StateWidget::paintEvent(QPaintEvent *event)
 {
     QStyleOption opt;
     opt.init(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
     return;
+
 }
 
-//处理鼠标点击事件
-void StateWidget::mousePressEvent(QMouseEvent* event)
-{
-    if(event->button() == Qt::LeftButton){
+// 处理鼠标点击事件
+void StateWidget::mousePressEvent(QMouseEvent* event)  {
+    if (event->button() == Qt::LeftButton) {
         if(_curstate == ClickLbState::Selected){
-            qDebug() << "PressEvent, already to selected press: " << _selected_press;
-
-            //调用基类的mousePressEvent()以保证正常的事件处理
+            qDebug()<<"PressEvent , already to selected press: "<< _selected_press;
+            //emit clicked();
+            // 调用基类的mousePressEvent以保证正常的事件处理
             QWidget::mousePressEvent(event);
             return;
         }
+
         if(_curstate == ClickLbState::Normal){
-            qDebug() << "PressEvent, change to selected press: " << _selected_press;
+            qDebug()<<"PressEvent , change to selected press: "<< _selected_press;
             _curstate = ClickLbState::Selected;
-            setProperty("state", _selected_press);
+            setProperty("state",_selected_press);
             repolish(this);
             update();
         }
 
         return;
     }
-    //调用基类的mousePressEvent()，保证正常的事件处理
+    // 调用基类的mousePressEvent以保证正常的事件处理
     QWidget::mousePressEvent(event);
 }
 
-void StateWidget::mouseReleaseEvent(QMouseEvent* event)
+void StateWidget::mouseReleaseEvent(QMouseEvent *event)
 {
-    if(event->button() == Qt::LeftButton){
+    if (event->button() == Qt::LeftButton) {
         if(_curstate == ClickLbState::Normal){
-            setProperty("state", _normal_hover);
+            //qDebug()<<"ReleaseEvent , change to normal hover: "<< _normal_hover;
+            setProperty("state",_normal_hover);
             repolish(this);
             update();
-        }
-        else{
-            setProperty("state", _selected_hover);
+
+        }else{
+            //qDebug()<<"ReleaseEvent , change to select hover: "<< _selected_hover;
+            setProperty("state",_selected_hover);
             repolish(this);
             update();
         }
         emit clicked();
         return;
     }
+    // 调用基类的mousePressEvent以保证正常的事件处理
     QWidget::mousePressEvent(event);
 }
 
-void StateWidget::enterEvent(QEvent* event)
-{
+// 处理鼠标悬停进入事件
+void StateWidget::enterEvent(QEvent* event) {
+    // 在这里处理鼠标悬停进入的逻辑
     if(_curstate == ClickLbState::Normal){
-        setProperty("state", _normal_hover);
+         //qDebug()<<"enter , change to normal hover: "<< _normal_hover;
+        setProperty("state",_normal_hover);
+        repolish(this);
+        update();
+
+    }else{
+         //qDebug()<<"enter , change to selected hover: "<< _selected_hover;
+        setProperty("state",_selected_hover);
         repolish(this);
         update();
     }
-    else{
-        setProperty("state", _selected_hover);
-        repolish(this);
-        update();
-    }
+
     QWidget::enterEvent(event);
 }
 
-void StateWidget::leaveEvent(QEvent* event)
-{
+// 处理鼠标悬停离开事件
+void StateWidget::leaveEvent(QEvent* event){
+    // 在这里处理鼠标悬停离开的逻辑
     if(_curstate == ClickLbState::Normal){
-        setProperty("state", _normal);
+        // qDebug()<<"leave , change to normal : "<< _normal;
+        setProperty("state",_normal);
         repolish(this);
         update();
-    }
-    else{
-        setProperty("state", _selected);
+
+    }else{
+        // qDebug()<<"leave , change to select normal : "<< _selected;
+        setProperty("state",_selected);
         repolish(this);
         update();
     }
@@ -114,10 +125,10 @@ ClickLbState StateWidget::GetCurState(){
     return _curstate;
 }
 
-void StateWidget::clearState()
+void StateWidget::ClearState()
 {
     _curstate = ClickLbState::Normal;
-    setProperty("state", _normal);
+    setProperty("state",_normal);
     repolish(this);
     update();
 }
@@ -126,17 +137,18 @@ void StateWidget::SetSelected(bool bselected)
 {
     if(bselected){
         _curstate = ClickLbState::Selected;
-        setProperty("state", _selected);
+        setProperty("state",_selected);
         repolish(this);
         update();
         return;
     }
 
     _curstate = ClickLbState::Normal;
-    setProperty("state", _normal);
+    setProperty("state",_normal);
     repolish(this);
     update();
     return;
+
 }
 
 void StateWidget::AddRedPoint()
@@ -156,23 +168,6 @@ void StateWidget::ShowRedPoint(bool show)
 {
     _red_point->setVisible(true);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

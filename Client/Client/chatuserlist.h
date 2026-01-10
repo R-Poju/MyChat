@@ -9,6 +9,7 @@
 
 class ChatUserList :public QListWidget
 {
+    Q_OBJECT
 public:
     ChatUserList(QWidget* parent = nullptr);
 

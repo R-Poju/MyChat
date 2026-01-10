@@ -64,7 +64,7 @@ void BubbleFrame::pointEvent(QPaintEvent* e)
         painter.drawPolygon(points, 3);
     }
 
-    return QFrame::pointEvent(e);
+    return QFrame::paintEvent(e);
 }
 
 

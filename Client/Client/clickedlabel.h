@@ -36,31 +36,3 @@ signals:
 };
 
 #endif // CLICKEDLABEL_H
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
