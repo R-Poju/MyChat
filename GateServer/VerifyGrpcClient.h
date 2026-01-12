@@ -7,7 +7,6 @@
 #include "const.h"
 #include "Singleton.h"
 #include "ConfigMgr.h"
-#include "RedisMgr.h"
 using grpc::Channel;
 using grpc::Status;
 using grpc::ClientContext;

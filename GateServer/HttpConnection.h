@@ -11,7 +11,6 @@ public:
 	tcp::socket& GetSocket() {
 		return _socket;
 	}
-
 private:
 	void CheckDeadline();
 	void WriteResponse();

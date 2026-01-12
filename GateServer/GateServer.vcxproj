@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <VCProjectVersion>16.0</VCProjectVersion>
+    <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{9d3075e4-189f-4c1c-834c-7405d6aa5aba}</ProjectGuid>
+    <ProjectGuid>{4f650a50-b0c9-44b7-9e9b-d2a4a11f28c0}</ProjectGuid>
     <RootNamespace>GateServer</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -71,42 +71,17 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\FutureSrcInc\mysql-connector-c++-8.3.0-winx64\include;D:\FutureSrcInc\redis\deps\hiredis;D:\FutureSrcInc\json\include;D:\FutureSrcInc\boost_1_87_0;$(VC_IncludePath);$(WindowsSDK_IncludePath);;D:\FutureSrcInc\mysql_connector\mysql-connector-c++-9.3.0-winx64\include</IncludePath>
-    <LibraryPath>D:\FutureSrcInc\mysql-connector-c++-8.3.0-winx64\lib64\vs14;D:\FutureSrcInc\redis\lib;D:\FutureSrcInc\json\lib;D:\FutureSrcInc\boost_1_87_0\stage\lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\FutureSrcInc\mysql-connector-c++-8.3.0-winx64\include;D:\FutureSrcInc\redis\deps\hiredis;D:\FutureSrcInc\json\include;D:\FutureSrcInc\boost_1_87_0;D:\cppsoft\libjson\include;D:\cppsoft\boost_1_81_0;$(IncludePath);D:\FutureSrcInc\mysql_connector\mysql-connector-c++-9.3.0-winx64\include</IncludePath>
-    <LibraryPath>D:\FutureSrcInc\mysql-connector-c++-8.3.0-winx64\lib64\vs14;D:\FutureSrcInc\redis\lib;D:\FutureSrcInc\json\lib;D:\FutureSrcInc\boost_1_87_0\stage\lib;D:\cppsoft\libjson\lib;D:\cppsoft\boost_1_81_0\stage\lib;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LinkIncremental>false</LinkIncremental>
-    <IncludePath>D:\cppsoft\boost_1_81_0;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\cppsoft\boost_1_81_0\stage\lib;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\FutureSrcInc\redis\deps\hiredis;D:\FutureSrcInc\grpc\include;D:\FutureSrcInc\grpc\third_party\protobuf\src;D:\FutureSrcInc\grpc\third_party\abseil-cpp;D:\FutureSrcInc\grpc\third_party\address_sorting\include;D:\FutureSrcInc\grpc\third_party\re2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>user32.lib;hiredis.lib;Win32_Interop.lib;libprotobufd.lib;gpr.lib;grpc.lib;grpc++.lib;grpc++_reflection.lib;address_sorting.lib;ws2_32.lib;cares.lib;zlibstaticd.lib;upb.lib;ssl.lib;crypto.lib;absl_bad_any_cast_impl.lib;absl_bad_optional_access.lib;absl_bad_variant_access.lib;absl_base.lib;absl_city.lib;absl_civil_time.lib;absl_cord.lib;absl_debugging_internal.lib;absl_demangle_internal.lib;absl_examine_stack.lib;absl_exponential_biased.lib;absl_failure_signal_handler.lib;absl_flags.lib;absl_flags_config.lib;absl_flags_internal.lib;absl_flags_marshalling.lib;absl_flags_parse.lib;absl_flags_program_name.lib;absl_flags_usage.lib;absl_flags_usage_internal.lib;absl_graphcycles_internal.lib;absl_hash.lib;absl_hashtablez_sampler.lib;absl_int128.lib;absl_leak_check.lib;absl_leak_check_disable.lib;absl_log_severity.lib;absl_malloc_internal.lib;absl_periodic_sampler.lib;absl_random_distributions.lib;absl_random_internal_distribution_test_util.lib;absl_random_internal_pool_urbg.lib;absl_random_internal_randen.lib;absl_random_internal_randen_hwaes.lib;absl_random_internal_randen_hwaes_impl.lib;absl_random_internal_randen_slow.lib;absl_random_internal_seed_material.lib;absl_random_seed_gen_exception.lib;absl_random_seed_sequences.lib;absl_raw_hash_set.lib;absl_raw_logging_internal.lib;absl_scoped_set_env.lib;absl_spinlock_wait.lib;absl_stacktrace.lib;absl_status.lib;absl_strings.lib;absl_strings_internal.lib;absl_str_format_internal.lib;absl_symbolize.lib;absl_synchronization.lib;absl_throw_delegate.lib;absl_time.lib;absl_time_zone.lib;absl_statusor.lib;re2.lib;json_vc71_libmtd.lib;debug\mysqlcppconn.lib;debug\mysqlcppconn8.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\FutureSrcInc\redis\lib;D:\FutureSrcInc\grpc\visualpro\third_party\cares\cares\lib\Debug;D:\FutureSrcInc\grpc\visualpro\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\zlib\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\protobuf\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\strings\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\base\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\time\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\numeric\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\boringssl-with-bazel\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\hash\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\container\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\debugging\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\flags\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\random\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\status\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\synchronization\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\types\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\re2\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <PostBuildEvent>
-      <Command>xcopy $(ProjectDir)*.dll   $(SolutionDir)$(Platform)\$(Configuration)\   /y
-xcopy $(ProjectDir)config.ini  $(SolutionDir)$(Platform)\$(Configuration)\   /y</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -119,8 +94,6 @@ xcopy $(ProjectDir)config.ini  $(SolutionDir)$(Platform)\$(Configuration)\   /y<
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -130,13 +103,10 @@ xcopy $(ProjectDir)config.ini  $(SolutionDir)$(Platform)\$(Configuration)\   /y<
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\FutureSrcInc\redis\deps\hiredis;D:\FutureSrcInc\grpc\include;D:\FutureSrcInc\grpc\third_party\protobuf\src;D:\FutureSrcInc\grpc\third_party\abseil-cpp;D:\FutureSrcInc\grpc\third_party\address_sorting\include;D:\FutureSrcInc\grpc\third_party\re2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>user32.lib;hiredis.lib;Win32_Interop.lib;libprotobufd.lib;gpr.lib;grpc.lib;grpc++.lib;grpc++_reflection.lib;address_sorting.lib;ws2_32.lib;cares.lib;zlibstaticd.lib;upb.lib;ssl.lib;crypto.lib;absl_bad_any_cast_impl.lib;absl_bad_optional_access.lib;absl_bad_variant_access.lib;absl_base.lib;absl_city.lib;absl_civil_time.lib;absl_cord.lib;absl_debugging_internal.lib;absl_demangle_internal.lib;absl_examine_stack.lib;absl_exponential_biased.lib;absl_failure_signal_handler.lib;absl_flags.lib;absl_flags_config.lib;absl_flags_internal.lib;absl_flags_marshalling.lib;absl_flags_parse.lib;absl_flags_program_name.lib;absl_flags_usage.lib;absl_flags_usage_internal.lib;absl_graphcycles_internal.lib;absl_hash.lib;absl_hashtablez_sampler.lib;absl_int128.lib;absl_leak_check.lib;absl_leak_check_disable.lib;absl_log_severity.lib;absl_malloc_internal.lib;absl_periodic_sampler.lib;absl_random_distributions.lib;absl_random_internal_distribution_test_util.lib;absl_random_internal_pool_urbg.lib;absl_random_internal_randen.lib;absl_random_internal_randen_hwaes.lib;absl_random_internal_randen_hwaes_impl.lib;absl_random_internal_randen_slow.lib;absl_random_internal_seed_material.lib;absl_random_seed_gen_exception.lib;absl_random_seed_sequences.lib;absl_raw_hash_set.lib;absl_raw_logging_internal.lib;absl_scoped_set_env.lib;absl_spinlock_wait.lib;absl_stacktrace.lib;absl_status.lib;absl_strings.lib;absl_strings_internal.lib;absl_str_format_internal.lib;absl_symbolize.lib;absl_synchronization.lib;absl_throw_delegate.lib;absl_time.lib;absl_time_zone.lib;absl_statusor.lib;re2.lib;json_vc71_libmtd.lib;debug\mysqlcppconn.lib;debug\mysqlcppconn8.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\FutureSrcInc\redis\lib;D:\FutureSrcInc\grpc\visualpro\third_party\cares\cares\lib\Debug;D:\FutureSrcInc\grpc\visualpro\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\zlib\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\protobuf\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\strings\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\base\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\time\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\numeric\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\boringssl-with-bazel\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\hash\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\container\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\debugging\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\flags\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\random\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\status\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\synchronization\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\abseil-cpp\absl\types\Debug;D:\FutureSrcInc\grpc\visualpro\third_party\re2\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -150,8 +120,6 @@ xcopy $(ProjectDir)config.ini  $(SolutionDir)$(Platform)\$(Configuration)\   /y<
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -187,7 +155,10 @@ xcopy $(ProjectDir)config.ini  $(SolutionDir)$(Platform)\$(Configuration)\   /y<
     <ClInclude Include="VerifyGrpcClient.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="config.ini" />
     <None Include="message.proto" />
+    <None Include="mysqlcppconn-9-vs14.dll" />
+    <None Include="mysqlcppconn8-2-vs14.dll" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

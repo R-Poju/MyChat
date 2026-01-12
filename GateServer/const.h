@@ -22,11 +22,6 @@
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <string>
-#include <grpcpp/channel.h>
-#include "message.pb.h"
-#include "message.grpc.pb.h"
-#include <grpcpp/grpcpp.h>
-#include "ConfigMgr.h"
 
 namespace beast = boost::beast;         // from <boost/beast.hpp>
 namespace http = beast::http;           // from <boost/beast/http.hpp>
