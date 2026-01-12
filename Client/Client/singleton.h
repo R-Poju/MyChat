@@ -5,13 +5,15 @@
  * @file       singleton.h
  * @brief       单例模板类
  *
- * @author     林逍
+ * @author     恋恋风辰
  * @date       2024/02/28
  * @history
  *****************************************************************************/
 #include <memory>
 #include <mutex>
 #include <iostream>
+#include "global.h"
+
 using namespace std;
 template <typename T>
 class Singleton {

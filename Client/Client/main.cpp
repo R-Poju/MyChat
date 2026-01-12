@@ -2,8 +2,6 @@
 #include <QApplication>
 #include <QFile>
 #include "global.h"
-#include <QDebug>
-#include <QSslSocket>
 
 int main(int argc, char *argv[])
 {
@@ -18,8 +16,8 @@ int main(int argc, char *argv[])
         a.setStyleSheet(style);
         qss.close();
     }else{
-        qDebug("Open failed");
-    }
+         qDebug("Open failed");
+     }
 
 
     // 获取当前应用程序的路径
@@ -27,7 +25,7 @@ int main(int argc, char *argv[])
     // 拼接文件名
     QString fileName = "config.ini";
     QString config_path = QDir::toNativeSeparators(app_path +
-                        QDir::separator() + fileName);
+                             QDir::separator() + fileName);
 
     QSettings settings(config_path, QSettings::IniFormat);
     QString gate_host = settings.value("GateServer/host").toString();
@@ -36,7 +34,5 @@ int main(int argc, char *argv[])
 
     MainWindow w;
     w.show();
-
-
     return a.exec();
 }

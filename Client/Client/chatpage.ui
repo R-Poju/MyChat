@@ -98,7 +98,7 @@
             <item>
              <widget class="QLabel" name="title_lb">
               <property name="text">
-               <string>Chat</string>
+               <string>燃烧的胸毛</string>
               </property>
              </widget>
             </item>
@@ -357,14 +357,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ClickedLabel</class>
-   <extends>QLabel</extends>
-   <header>clickedlabel.h</header>
-  </customwidget>
-  <customwidget>
    <class>ClickedBtn</class>
    <extends>QPushButton</extends>
    <header>clickedbtn.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ClickedLabel</class>
+   <extends>QLabel</extends>
+   <header>clickedlabel.h</header>
   </customwidget>
   <customwidget>
    <class>MessageTextEdit</class>

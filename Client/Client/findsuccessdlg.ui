@@ -51,7 +51,7 @@
       <item>
        <widget class="QLabel" name="name_lb">
         <property name="text">
-         <string>凌波微步</string>
+         <string>香水有毒</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>

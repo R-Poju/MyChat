@@ -1,7 +1,7 @@
 #include "lineitem.h"
 #include "ui_lineitem.h"
 
-LineItem::LineItem(QWidget* parent) :
+LineItem::LineItem(QWidget *parent) :
     ListItemBase(parent),
     ui(new Ui::LineItem)
 {
@@ -16,38 +16,5 @@ LineItem::~LineItem()
 
 QSize LineItem::sizeHint() const
 {
-    return QSize(250, 5);
+   return QSize(250,5); // 返回自定义的尺寸
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

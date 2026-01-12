@@ -31,6 +31,11 @@ QString UserMgr::GetIcon()
     return _user_info->_icon;
 }
 
+std::shared_ptr<UserInfo> UserMgr::GetUserInfo()
+{
+    return _user_info;
+}
+
 void UserMgr::AppendApplyList(QJsonArray array)
 {
     // 遍历 QJsonArray 并输出每个元素
@@ -71,8 +76,24 @@ std::vector<std::shared_ptr<ApplyInfo> > UserMgr::GetApplyList()
     return _apply_list;
 }
 
-std::vector<std::shared_ptr<FriendInfo>> UserMgr::GetChatListPerPage() {
+void UserMgr::AddApplyList(std::shared_ptr<ApplyInfo> app)
+{
+    _apply_list.push_back(app);
+}
 
+bool UserMgr::AlreadyApply(int uid)
+{
+    for(auto& apply: _apply_list){
+        if(apply->_uid == uid){
+            return true;
+        }
+    }
+
+    return false;
+}
+
+std::vector<std::shared_ptr<FriendInfo>> UserMgr::GetChatListPerPage() {
+    
     std::vector<std::shared_ptr<FriendInfo>> friend_list;
     int begin = _chat_loaded;
     int end = begin + CHAT_COUNT_PER_PAGE;
@@ -114,8 +135,6 @@ std::vector<std::shared_ptr<FriendInfo>> UserMgr::GetConListPerPage() {
 
 UserMgr::UserMgr():_user_info(nullptr), _chat_loaded(0),_contact_loaded(0)
 {
-    connect(TcpMgr::GetInstance().get(), &TcpMgr::sig_auth_rsp, this, &UserMgr::SlotAddFriendRsp);
-    connect(TcpMgr::GetInstance().get(), &TcpMgr::sig_add_auth_friend, this, &UserMgr::SlotAddFriendAuth);
 
 }
 
@@ -199,3 +218,26 @@ void UserMgr::AddFriend(std::shared_ptr<AuthInfo> auth_info)
     auto friend_info = std::make_shared<FriendInfo>(auth_info);
     _friend_map[friend_info->_uid] = friend_info;
 }
+
+std::shared_ptr<FriendInfo> UserMgr::GetFriendById(int uid)
+{
+    auto find_it = _friend_map.find(uid);
+    if(find_it == _friend_map.end()){
+        return nullptr;
+    }
+
+    return *find_it;
+}
+
+void UserMgr::AppendFriendChatMsg(int friend_id,std::vector<std::shared_ptr<TextChatData> > msgs)
+{
+    auto find_iter = _friend_map.find(friend_id);
+    if(find_iter == _friend_map.end()){
+        qDebug()<<"append friend uid  " << friend_id << " not found";
+        return;
+    }
+
+    find_iter.value()->AppendChatMsgs(msgs);
+}
+
+

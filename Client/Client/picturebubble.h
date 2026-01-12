@@ -1,43 +1,14 @@
-#ifndef PICTUREBUBBLE_H
+﻿#ifndef PICTUREBUBBLE_H
 #define PICTUREBUBBLE_H
 
+#include "BubbleFrame.h"
 #include <QHBoxLayout>
 #include <QPixmap>
-#include "BubbleFrame.h"
-
-class PictureBubble :public BubbleFrame
+class PictureBubble : public BubbleFrame
 {
     Q_OBJECT
 public:
-    PictureBubble(const QPixmap& picture, ChatRole role, QWidget* parent = nullptr);
+    PictureBubble(const QPixmap &picture, ChatRole role, QWidget *parent = nullptr);
 };
 
 #endif // PICTUREBUBBLE_H
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

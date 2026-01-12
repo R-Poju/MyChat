@@ -98,18 +98,18 @@ void RegisterDialog::on_get_code_clicked()
         //发送http请求获取验证码
         QJsonObject json_obj;
         json_obj["email"] = email;
-        HttpMgr::GetInstance()->PostHttpReq(QUrl(/*gate_url_prefix + */"http://localhost:8080/get_varifycode"),
-                                            json_obj,ReqId::ID_GET_VARIFY_CODE, Modules::REGISTERMOD);
+        HttpMgr::GetInstance()->PostHttpReq(QUrl(gate_url_prefix + "/get_varifycode"),
+                                            json_obj, ReqId::ID_GET_VARIFY_CODE, Modules::REGISTERMOD);
     }else{
         //提示邮箱不正确
-        showTip(tr("邮箱地址不正确"),false);
+        showTip(tr("邮箱地址不正确"), false);
     }
 }
 
 void RegisterDialog::slot_reg_mod_finish(ReqId id, QString res, ErrorCodes err)
 {
     if(err != ErrorCodes::SUCCESS){
-        showTip(tr("网络请求错误"),false);
+        showTip(tr("网络请求错误"), false);
         return;
     }
 
@@ -117,13 +117,13 @@ void RegisterDialog::slot_reg_mod_finish(ReqId id, QString res, ErrorCodes err)
     QJsonDocument jsonDoc = QJsonDocument::fromJson(res.toUtf8());
     //json解析错误
     if(jsonDoc.isNull()){
-        showTip(tr("json解析错误"),false);
+        showTip(tr("json解析错误"), false);
         return;
     }
 
     //json解析错误
     if(!jsonDoc.isObject()){
-        showTip(tr("json解析错误"),false);
+        showTip(tr("json解析错误"), false);
         return;
     }
 
@@ -173,7 +173,7 @@ void RegisterDialog::on_sure_btn_clicked()
     json_obj["passwd"] = ui->pass_edit->text();
     json_obj["confirm"] = ui->confirm_edit->text();
     json_obj["varifycode"] = ui->varify_edit->text();
-    HttpMgr::GetInstance()->PostHttpReq(QUrl(/*gate_url_prefix + */"http://localhost:8080/user_register"),
+    HttpMgr::GetInstance()->PostHttpReq(QUrl(gate_url_prefix + "/user_register"),
                             json_obj, ReqId::ID_REG_USER, Modules::REGISTERMOD);
 }
 
@@ -289,7 +289,7 @@ void RegisterDialog::initHandlers()
 {
     //注册获取验证码回包逻辑
     _handlers.insert(ReqId::ID_GET_VARIFY_CODE, [this](QJsonObject jsonObj){
-        int error = jsonObj["error"].toInt();
+        int error = jsonObj["error"].toInt();  // 获取error字段（转为int）
         if(error != ErrorCodes::SUCCESS){
             showTip(tr("参数错误"), false);
             return;
@@ -300,9 +300,16 @@ void RegisterDialog::initHandlers()
     });
 
     _handlers.insert(ReqId::ID_REG_USER, [this](QJsonObject jsonObj){
-        int error = jsonObj["error"].toInt();
+//        int error = jsonObj["error"].toInt();  // 获取error字段（转为int）
+
+        qDebug() << "完整JSON：" << jsonObj;  // 新增这行！！！
+
+        int error = jsonObj["error"].toInt();  // 获取error字段（转为int）
+        qDebug() << "error值：" << error;  // 新增这行！！！
+        qDebug() << "SUCCESS定义值：" << ErrorCodes::SUCCESS;  // 新增这行！！！
+
         if(error != ErrorCodes::SUCCESS){
-            showTip(tr("参数错误"),false);
+            showTip(tr("参数错误"), false);
             return;
         }
         auto email = jsonObj["email"].toString();

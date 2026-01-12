@@ -1,20 +1,18 @@
 #ifndef TIMERBTN_H
 #define TIMERBTN_H
-#include <qpushbutton.h>
+#include <QPushButton>
 #include <QTimer>
 
 class TimerBtn : public QPushButton
-
 {
 public:
+    TimerBtn(QWidget *parent = nullptr);
+    ~ TimerBtn();
 
-    TimerBtn(QWidget* parent = nullptr);
-    ~TimerBtn();
-
-    virtual void mouseReleaseEvent(QMouseEvent* e) override;
-
+    // 重写mouseReleaseEvent
+    virtual void mouseReleaseEvent(QMouseEvent *e) override;
 private:
-    QTimer* _timer;
+    QTimer  *_timer;
     int _counter;
 };
 

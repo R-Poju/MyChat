@@ -88,9 +88,6 @@
           <property name="text">
            <string/>
           </property>
-          <property name="pixmap">
-           <pixmap resource="rc.qrc">:/res/head_02.jpg</pixmap>
-          </property>
          </widget>
         </item>
        </layout>
@@ -135,13 +132,13 @@
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>25</height>
+           <height>30</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
            <width>16777215</width>
-           <height>25</height>
+           <height>30</height>
           </size>
          </property>
         </widget>
@@ -190,35 +187,32 @@
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>25</height>
+           <height>30</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
            <width>16777215</width>
-           <height>25</height>
+           <height>30</height>
           </size>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="ClickedLabel" name="pass_visible">
-         <property name="minimumSize">
+        <spacer name="horizontalSpacer_7">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
           <size>
            <width>25</width>
            <height>20</height>
           </size>
          </property>
-         <property name="maximumSize">
-          <size>
-           <width>25</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
+        </spacer>
        </item>
       </layout>
      </item>
@@ -369,8 +363,6 @@
    <header>clickedlabel.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="rc.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

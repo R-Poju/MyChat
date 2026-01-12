@@ -152,7 +152,7 @@ void TcpMgr::initHandlers()
             UserMgr::GetInstance()->AppendFriendList(jsonObj["friend_list"].toArray());
         }
 
-        emit sig_switch_chatdlg();
+        emit sig_swich_chatdlg();
     });
 
 
@@ -219,8 +219,17 @@ void TcpMgr::initHandlers()
 			emit sig_user_search(nullptr);
 			return;
 		}
-		auto apply_info = std::make_shared<AddFriendApply>(jsonObj["applyuid"].toInt(), jsonObj["name"].toString(),
-			jsonObj["desc"].toString());
+
+         int from_uid = jsonObj["applyuid"].toInt();
+         QString name = jsonObj["name"].toString();
+         QString desc = jsonObj["desc"].toString();
+         QString icon = jsonObj["icon"].toString();
+         QString nick = jsonObj["nick"].toString();
+         int sex = jsonObj["sex"].toInt();
+
+        auto apply_info = std::make_shared<AddFriendApply>(
+                    from_uid, name, desc,
+                      icon, nick, sex);
 
 		emit sig_friend_apply(apply_info);
 		});
@@ -328,6 +337,69 @@ void TcpMgr::initHandlers()
 
         qDebug() << "Auth Friend Success " ;
       });
+
+
+    _handlers.insert(ID_TEXT_CHAT_MSG_RSP, [this](ReqId id, int len, QByteArray data) {
+        Q_UNUSED(len);
+        qDebug() << "handle id is " << id << " data is " << data;
+        // 将QByteArray转换为QJsonDocument
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(data);
+
+        // 检查转换是否成功
+        if (jsonDoc.isNull()) {
+            qDebug() << "Failed to create QJsonDocument.";
+            return;
+        }
+
+        QJsonObject jsonObj = jsonDoc.object();
+
+        if (!jsonObj.contains("error")) {
+            int err = ErrorCodes::ERR_JSON;
+            qDebug() << "Chat Msg Rsp Failed, err is Json Parse Err" << err;
+            return;
+        }
+
+        int err = jsonObj["error"].toInt();
+        if (err != ErrorCodes::SUCCESS) {
+            qDebug() << "Chat Msg Rsp Failed, err is " << err;
+            return;
+        }
+
+        qDebug() << "Receive Text Chat Rsp Success " ;
+        //ui设置送达等标记 todo...
+      });
+
+    _handlers.insert(ID_NOTIFY_TEXT_CHAT_MSG_REQ, [this](ReqId id, int len, QByteArray data) {
+        Q_UNUSED(len);
+        qDebug() << "handle id is " << id << " data is " << data;
+        // 将QByteArray转换为QJsonDocument
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(data);
+
+        // 检查转换是否成功
+        if (jsonDoc.isNull()) {
+            qDebug() << "Failed to create QJsonDocument.";
+            return;
+        }
+
+        QJsonObject jsonObj = jsonDoc.object();
+
+        if (!jsonObj.contains("error")) {
+            int err = ErrorCodes::ERR_JSON;
+            qDebug() << "Notify Chat Msg Failed, err is Json Parse Err" << err;
+            return;
+        }
+
+        int err = jsonObj["error"].toInt();
+        if (err != ErrorCodes::SUCCESS) {
+            qDebug() << "Notify Chat Msg Failed, err is " << err;
+            return;
+        }
+
+        qDebug() << "Receive Text Chat Notify Success " ;
+        auto msg_ptr = std::make_shared<TextChatMsg>(jsonObj["fromuid"].toInt(),
+                jsonObj["touid"].toInt(),jsonObj["text_array"].toArray());
+        emit sig_text_chat_msg(msg_ptr);
+      });
 }
 
 void TcpMgr::handleMsg(ReqId id, int len, QByteArray data)
@@ -347,19 +419,17 @@ void TcpMgr::slot_tcp_connect(ServerInfo si)
     // 尝试连接到服务器
     qDebug() << "Connecting to server...";
     _host = si.Host;
-    _port = static_cast<uint16_t>(si.Port.toUInt());
+    _port = 8080;
+//    _port = static_cast<uint16_t>(si.Port.toUInt());  //这一步会把8080弄成8091，害我找错误找半天
     _socket.connectToHost(si.Host, _port);
 }
 
-void TcpMgr::slot_send_data(ReqId reqId, QString data)
+void TcpMgr::slot_send_data(ReqId reqId, QByteArray dataBytes)
 {
     uint16_t id = reqId;
 
-    // 将字符串转换为UTF-8编码的字节数组
-    QByteArray dataBytes = data.toUtf8();
-
     // 计算长度（使用网络字节序转换）
-    quint16 len = static_cast<quint16>(data.size());
+    quint16 len = static_cast<quint16>(dataBytes.length());
 
     // 创建一个QByteArray用于存储要发送的所有数据
     QByteArray block;
@@ -372,10 +442,11 @@ void TcpMgr::slot_send_data(ReqId reqId, QString data)
     out << id << len;
 
     // 添加字符串数据
-    block.append(data);
+    block.append(dataBytes);
 
     // 发送数据
     _socket.write(block);
+    qDebug() << "tcp mgr send byte data is " << block ;
 }
 
 
