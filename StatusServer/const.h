@@ -17,16 +17,12 @@
 #include <jdbc/cppconn/resultset.h>
 #include <jdbc/cppconn/statement.h>
 #include <jdbc/cppconn/exception.h>
+#include <iostream>
 #include <functional>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <string>
-#include <grpcpp/channel.h>
-#include "message.pb.h"
-#include "message.grpc.pb.h"
-#include <grpcpp/grpcpp.h>
-#include "ConfigMgr.h"
 
 namespace beast = boost::beast;         // from <boost/beast.hpp>
 namespace http = beast::http;           // from <boost/beast/http.hpp>
@@ -64,6 +60,10 @@ private:
 	std::function<void()> func_;
 };
 
-#define CODEPREFIX  "code_"
+#define USERIPPREFIX  "uip_"
+#define USERTOKENPREFIX  "utoken_"
+#define IPCOUNTPREFIX  "ipcount_"
+#define USER_BASE_INFO "ubaseinfo_"
+#define LOGIN_COUNT  "logincount"
 
 
