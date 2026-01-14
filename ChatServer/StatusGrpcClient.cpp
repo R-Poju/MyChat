@@ -1,13 +1,5 @@
 #include "StatusGrpcClient.h"
 
-StatusGrpcClient::StatusGrpcClient()
-{
-	auto& gCfgMgr = ConfigMgr::Inst();
-	std::string host = gCfgMgr["StatusServer"]["Host"];
-	std::string port = gCfgMgr["StatusServer"]["Port"];
-	pool_.reset(new StatusConPool(5, host, port));
-}
-
 GetChatServerRsp StatusGrpcClient::GetChatServer(int uid)
 {
 	ClientContext context;
@@ -19,7 +11,7 @@ GetChatServerRsp StatusGrpcClient::GetChatServer(int uid)
 	Defer defer([&stub, this]() {
 		pool_->returnConnection(std::move(stub));
 		});
-	if (status.ok()) {
+	if (status.ok()) {	
 		return reply;
 	}
 	else {
@@ -48,4 +40,13 @@ LoginRsp StatusGrpcClient::Login(int uid, std::string token)
 		reply.set_error(ErrorCodes::RPCFailed);
 		return reply;
 	}
+}
+
+
+StatusGrpcClient::StatusGrpcClient()
+{
+	auto& gCfgMgr = ConfigMgr::Inst();
+	std::string host = gCfgMgr["StatusServer"]["Host"];
+	std::string port = gCfgMgr["StatusServer"]["Port"];
+	pool_.reset(new StatusConPool(5, host, port));
 }

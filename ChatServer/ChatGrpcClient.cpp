@@ -2,10 +2,9 @@
 #include "RedisMgr.h"
 #include "ConfigMgr.h"
 #include "UserMgr.h"
+
 #include "CSession.h"
 #include "MysqlMgr.h"
-#include "ChatServiceImpl.h"
-
 
 ChatGrpcClient::ChatGrpcClient()
 {
@@ -27,6 +26,7 @@ ChatGrpcClient::ChatGrpcClient()
 		}
 		_pools[cfg[word]["Name"]] = std::make_unique<ChatConPool>(5, cfg[word]["Host"], cfg[word]["Port"]);
 	}
+
 }
 
 AddFriendRsp ChatGrpcClient::NotifyAddFriend(std::string server_ip, const AddFriendReq& req)
@@ -42,8 +42,8 @@ AddFriendRsp ChatGrpcClient::NotifyAddFriend(std::string server_ip, const AddFri
 	if (find_iter == _pools.end()) {
 		return rsp;
 	}
-
-	auto& pool = find_iter->second;
+	
+	auto &pool = find_iter->second;
 	ClientContext context;
 	auto stub = pool->getConnection();
 	Status status = stub->NotifyAddFriend(&context, req, &rsp);
@@ -53,6 +53,7 @@ AddFriendRsp ChatGrpcClient::NotifyAddFriend(std::string server_ip, const AddFri
 
 	if (!status.ok()) {
 		rsp.set_error(ErrorCodes::RPCFailed);
+		return rsp;
 	}
 
 	return rsp;
@@ -61,7 +62,7 @@ AddFriendRsp ChatGrpcClient::NotifyAddFriend(std::string server_ip, const AddFri
 
 bool ChatGrpcClient::GetBaseInfo(std::string base_key, int uid, std::shared_ptr<UserInfo>& userinfo)
 {
-	//优先在redis中查询用户信息
+	//优先查redis中查询用户信息
 	std::string info_str = "";
 	bool b_base = RedisMgr::GetInstance()->Get(base_key, info_str);
 	if (b_base) {
@@ -102,6 +103,7 @@ bool ChatGrpcClient::GetBaseInfo(std::string base_key, int uid, std::shared_ptr<
 		redis_root["icon"] = userinfo->icon;
 		RedisMgr::GetInstance()->Set(base_key, redis_root.toStyledString());
 	}
+
 }
 
 AuthFriendRsp ChatGrpcClient::NotifyAuthFriend(std::string server_ip, const AuthFriendReq& req) {
@@ -134,9 +136,9 @@ AuthFriendRsp ChatGrpcClient::NotifyAuthFriend(std::string server_ip, const Auth
 	return rsp;
 }
 
-TextChatMsgRsp ChatGrpcClient::NotifyTextChatMsg(std::string server_ip,
+TextChatMsgRsp ChatGrpcClient::NotifyTextChatMsg(std::string server_ip, 
 	const TextChatMsgReq& req, const Json::Value& rtvalue) {
-
+	
 	TextChatMsgRsp rsp;
 	rsp.set_error(ErrorCodes::Success);
 
@@ -148,6 +150,7 @@ TextChatMsgRsp ChatGrpcClient::NotifyTextChatMsg(std::string server_ip,
 			new_msg->set_msgid(text_data.msgid());
 			new_msg->set_msgcontent(text_data.msgcontent());
 		}
+		
 		});
 
 	auto find_iter = _pools.find(server_ip);

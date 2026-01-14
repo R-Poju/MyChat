@@ -1,14 +1,11 @@
 #pragma once
-
 #include <string>
 #include "const.h"
 #include <iostream>
 #include <boost/asio.hpp>
-
 using namespace std;
 using boost::asio::ip::tcp;
 class LogicSystem;
-
 class MsgNode
 {
 public:
@@ -40,10 +37,11 @@ private:
 	short _msg_id;
 };
 
-class SendNode :public MsgNode {
+class SendNode:public MsgNode {
 	friend class LogicSystem;
 public:
-	SendNode(const char* msg, short max_len, short msg_id);
+	SendNode(const char* msg,short max_len, short msg_id);
 private:
 	short _msg_id;
 };
+
