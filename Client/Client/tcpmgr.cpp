@@ -419,8 +419,7 @@ void TcpMgr::slot_tcp_connect(ServerInfo si)
     // 尝试连接到服务器
     qDebug() << "Connecting to server...";
     _host = si.Host;
-    _port = 8080;
-//    _port = static_cast<uint16_t>(si.Port.toUInt());  //这一步会把8080弄成8091，害我找错误找半天
+    _port = static_cast<uint16_t>(si.Port.toUInt());
     _socket.connectToHost(si.Host, _port);
 }
 

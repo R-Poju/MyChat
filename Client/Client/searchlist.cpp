@@ -74,14 +74,14 @@ void SearchList::addTipItem()
 
 void SearchList::slot_item_clicked(QListWidgetItem *item)
 {
-    QWidget *widget = this->itemWidget(item); // 获取自定义widget对象
+    QWidget* widget = this->itemWidget(item); // 获取自定义widget对象
     if(!widget){
         qDebug()<< "slot item clicked widget is nullptr";
         return;
     }
 
     // 对自定义widget进行操作， 将item 转化为基类ListItemBase
-    ListItemBase *customItem = qobject_cast<ListItemBase*>(widget);
+    ListItemBase* customItem = qobject_cast<ListItemBase*>(widget);
     if(!customItem){
         qDebug()<< "slot item clicked widget is nullptr";
         return;

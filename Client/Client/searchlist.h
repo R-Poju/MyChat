@@ -59,3 +59,30 @@ signals:
 };
 
 #endif // SEARCHLIST_H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
