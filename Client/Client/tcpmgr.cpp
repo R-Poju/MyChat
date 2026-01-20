@@ -29,7 +29,7 @@ TcpMgr::TcpMgr():_host(""),_port(0),_b_recv_pending(false),_message_id(0),_messa
                    // 预读取消息ID和消息长度，但不从缓冲区中移除
                    stream >> _message_id >> _message_len;
 
-                   //将buffer 中的前四个字节移除
+                   //将buffer中的前四个字节移除
                    _buffer = _buffer.mid(sizeof(quint16) * 2);
 
                    // 输出读取的数据
@@ -49,7 +49,7 @@ TcpMgr::TcpMgr():_host(""),_port(0),_b_recv_pending(false),_message_id(0),_messa
                qDebug() << "receive body msg is " << messageBody ;
 
                _buffer = _buffer.mid(_message_len);
-               handleMsg(ReqId(_message_id),_message_len, messageBody);
+               handleMsg(ReqId(_message_id), _message_len, messageBody);
            }
 
        });

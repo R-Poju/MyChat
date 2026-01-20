@@ -1,14 +1,14 @@
 #include "searchlist.h"
-#include<QScrollBar>
 #include "adduseritem.h"
 #include "invaliditem.h"
-#include "findsuccessdlg.h"
 #include "tcpmgr.h"
-#include "customizeedit.h"
-#include "findfaildlg.h"
-#include "loadingdlg.h"
 #include "userdata.h"
 #include "usermgr.h"
+#include "findsuccessdlg.h"
+#include "findfaildlg.h"
+#include "customizeedit.h"
+#include "loadingdlg.h"
+#include <QScrollBar>
 
 SearchList::SearchList(QWidget *parent):QListWidget(parent),_find_dlg(nullptr), _search_edit(nullptr), _send_pending(false)
 {
@@ -54,7 +54,7 @@ void SearchList::waitPending(bool pending)
 
 void SearchList::addTipItem()
 {
-    auto *invalid_item = new QWidget();
+    auto* invalid_item = new QWidget();
     QListWidgetItem *item_tmp = new QListWidgetItem;
     //qDebug()<<"chat_user_wid sizeHint is " << chat_user_wid->sizeHint();
     item_tmp->setSizeHint(QSize(250,10));
@@ -127,8 +127,8 @@ void SearchList::slot_user_search(std::shared_ptr<SearchInfo> si)
     if (si == nullptr) {
         _find_dlg = std::make_shared<FindFailDlg>(this);
     }else{
-        //此处分两种情况，一种是搜多到已经是自己的朋友了，一种是未添加好友
-        //查找是否已经是好友
+        //此处分两种情况，一种是搜索到已经是自己的朋友了，一种是未添加好友
+        //判断是否已经是好友
         bool bExist = UserMgr::GetInstance()->CheckFriendById(si->_uid);
         if(bExist){
                 //此处处理已经添加的好友，实现页面跳转
@@ -143,3 +143,33 @@ void SearchList::slot_user_search(std::shared_ptr<SearchInfo> si)
     }
     _find_dlg->show();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

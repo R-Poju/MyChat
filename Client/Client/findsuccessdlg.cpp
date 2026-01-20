@@ -3,7 +3,7 @@
 #include <QDir>
 #include "applyfriend.h"
 #include <memory>
-FindSuccessDlg::FindSuccessDlg(QWidget *parent) :
+FindSuccessDlg::FindSuccessDlg(QWidget* parent) :
     QDialog(parent),
     ui(new Ui::FindSuccessDlg),_parent(parent)
 {
@@ -15,13 +15,12 @@ FindSuccessDlg::FindSuccessDlg(QWidget *parent) :
     this->setObjectName("FindSuccessDlg");
     // 获取当前应用程序的路径
     QString app_path = QCoreApplication::applicationDirPath();
-    QString pix_path = QDir::toNativeSeparators(app_path +
-                             QDir::separator() + "static"+QDir::separator()+"head_1.jpg");
+    QString pix_path = QDir::toNativeSeparators(app_path + QDir::separator() + "static"
+                                                + QDir::separator() + "head_1.jpg");
     QPixmap head_pix(pix_path);
-    head_pix = head_pix.scaled(ui->head_lb->size(),
-            Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    head_pix = head_pix.scaled(ui->head_lb->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
     ui->head_lb->setPixmap(head_pix);
-    ui->add_friend_btn->SetState("normal","hover","press");
+    ui->add_friend_btn->SetState("normal", "hover", "press");
     this->setModal(true);
 }
 
