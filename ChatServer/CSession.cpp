@@ -196,7 +196,6 @@ void CSession::HandleWrite(const boost::system::error_code& error, std::shared_p
 	catch (std::exception& e) {
 		std::cerr << "Exception code : " << e.what() << endl;
 	}
-	
 }
 
 //读取完整长度
