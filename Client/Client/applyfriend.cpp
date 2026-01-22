@@ -15,9 +15,9 @@ ApplyFriend::ApplyFriend(QWidget *parent) :
     setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
     this->setObjectName("ApplyFriend");
     this->setModal(true);
-    ui->name_ed->setPlaceholderText(tr("恋恋风辰"));
+    ui->name_ed->setPlaceholderText(tr("光明左使杨逍"));
     ui->lb_ed->setPlaceholderText("搜索、添加标签");
-    ui->back_ed->setPlaceholderText("燃烧的胸毛");
+    ui->back_ed->setPlaceholderText("光明右使范遥");
 
 	ui->lb_ed->SetMaxLength(21);
 	ui->lb_ed->move(2, 2);
@@ -477,7 +477,7 @@ void ApplyFriend::SlotAddFirendLabelByClickTip(QString text)
 
 void ApplyFriend::SlotApplySure()
 {
-    qDebug()<<"Slot Apply Sure called" ;
+    qDebug() << "Slot Apply Sure called" ;
     //发送请求逻辑
     QJsonObject jsonObj;
     auto uid = UserMgr::GetInstance()->GetUid();
@@ -512,4 +512,36 @@ void ApplyFriend::SlotApplyCancel()
     this->hide();
     deleteLater();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
