@@ -13,6 +13,7 @@ CSession::CSession(boost::asio::io_context& io_context, CServer* server):
 	_session_id = boost::uuids::to_string(a_uuid);
 	_recv_head_node = make_shared<MsgNode>(HEAD_TOTAL_LEN);
 }
+
 CSession::~CSession() {
 	std::cout << "~CSession destruct" << endl;
 }
