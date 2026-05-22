@@ -54,13 +54,7 @@ TcpMgr::TcpMgr():_host(""),_port(0),_b_recv_pending(false),_message_id(0),_messa
 
        });
 
-       //5.15 之后版本
-//       QObject::connect(&_socket, QOverload<QAbstractSocket::SocketError>::of(&QTcpSocket::errorOccurred), [&](QAbstractSocket::SocketError socketError) {
-//           Q_UNUSED(socketError)
-//           qDebug() << "Error:" << _socket.errorString();
-//       });
 
-       // 处理错误（适用于Qt 5.15之前的版本）
         QObject::connect(&_socket, static_cast<void (QTcpSocket::*)(QTcpSocket::SocketError)>(&QTcpSocket::error),
                             [&](QTcpSocket::SocketError socketError) {
                qDebug() << "Error:" << _socket.errorString() ;
@@ -447,5 +441,34 @@ void TcpMgr::slot_send_data(ReqId reqId, QByteArray dataBytes)
     _socket.write(block);
     qDebug() << "tcp mgr send byte data is " << block ;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

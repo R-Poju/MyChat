@@ -50,5 +50,13 @@
         <file>res/voice_chat_press.png</file>
         <file>res/head_02.jpg</file>
         <file>res/WideRunner_01.jpg</file>
+        <file>res/head_6.jpg</file>
+        <file>res/head_7.jpg</file>
+        <file>res/head_8.jpg</file>
+        <file>res/head_9.jpg</file>
+        <file>res/head_10.jpg</file>
+        <file>res/head_11.jpg</file>
+        <file>res/head_12.jpg</file>
+        <file>res/head_13.jpg</file>
     </qresource>
 </RCC>

@@ -117,29 +117,50 @@ const QString add_prefix = "添加标签 ";
 const int  tip_offset = 5;
 
 
-const std::vector<QString>  strs ={"hello world !",
-                             "nice to meet u",
-                             "New year，new life",
-                            "You have to love yourself",
-                            "My love is written in the wind ever since the whole world is you"};
+const std::vector<QString>  strs ={ "If you ever find yourself stuck in the middle of the sea",
+                                    "I'llsail the world to find you",
+                                    "If you ever find yourself lost in the dark and you can't see",
+                                    "I'llbe the light to guide you",
+                                    "Find out what we're made of",
+                                    "What we are called to help our friends in need",
+                                    "You can count on me like 1 2 3, I'llbe there",
+                                    "And I know when I need it I can count on you like 4 3 2",
+                                    "And you'll be there cause that's what friends are supposed to do",
+                                    "If you toss and you turn and you just can't fall asleep",
+                                    "I'llsing a song beside you",
+                                    "And if you ever forget how much you really mean to me",
+                                    "Everyday I will remind you"};
 
 const std::vector<QString> heads = {
     ":/res/head_1.jpg",
     ":/res/head_2.jpg",
     ":/res/head_3.jpg",
     ":/res/head_4.jpg",
-    ":/res/head_5.jpg"
+    ":/res/head_5.jpg",
+    ":/res/head_6.jpg",
+    ":/res/head_7.jpg",
+    ":/res/head_8.jpg",
+    ":/res/head_9.jpg",
+    ":/res/head_10.jpg",
+    ":/res/head_11.jpg",
+    ":/res/head_12.jpg",
+    ":/res/head_13.jpg"
 };
 
 const std::vector<QString> names = {
-    "HanMeiMei",
-    "Lily",
-    "Ben",
-    "Androw",
-    "Max",
-    "Summer",
-    "Candy",
-    "Hunter"
+    "Jett",
+    "Sage",
+    "Omen",
+    "Clove",
+    "Sova",
+    "Cypher",
+    "Chamber",
+    "Viper",
+    "Astra",
+    "Iso",
+    "Neon",
+    "Miks",
+    "Waylay"
 };
 
 const int CHAT_COUNT_PER_PAGE = 13;

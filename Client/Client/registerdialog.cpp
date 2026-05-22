@@ -231,7 +231,8 @@ bool RegisterDialog::checkPassValid()
 
     if(pass != confirm){
         //提示密码不匹配
-        AddTipErr(TipErr::TIP_PWD_CONFIRM, tr("密码和确认密码不匹配"));
+        //AddTipErr(TipErr::TIP_PWD_CONFIRM, tr("密码和确认密码不匹配"));
+        AddTipErr(TipErr::TIP_PWD_CONFIRM, tr(""));
         return false;
     }else{
        DelTipErr(TipErr::TIP_PWD_CONFIRM);

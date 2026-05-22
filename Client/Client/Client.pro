@@ -153,6 +153,7 @@ RESOURCES += \
 
 DISTFILES += \
     config.ini \
+    res/WideRunner_01.jpg \
     res/add_friend.png \
     res/add_friend_hover.png \
     res/add_friend_normal.png \
@@ -172,6 +173,8 @@ DISTFILES += \
     res/filedir.png \
     res/filedir_hover.png \
     res/filedir_press.png \
+    res/head_01.jpg \
+    res/head_1.jpg \
     res/head_1.jpg \
     res/head_2.jpg \
     res/head_3.jpg \
