@@ -88,7 +88,7 @@ private:
 	size_t poolSize_;
 	std::string host_;
 	std::string port_;
-	std::queue<std::unique_ptr<ChatService::Stub> > connections_;
+	std::queue<std::unique_ptr<ChatService::Stub>> connections_;
 	std::mutex mutex_;
 	std::condition_variable cond_;
 };

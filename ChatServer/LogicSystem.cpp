@@ -134,9 +134,11 @@ void LogicSystem::LoginHandler(shared_ptr<CSession> session, const short& msg_id
 	rtvalue["sex"] = user_info->sex;
 	rtvalue["icon"] = user_info->icon;
 
+	//当用户登录后，服务器需要将申请列表和好友列表同步给客户端
+
 	//从数据库获取申请列表
 	std::vector<std::shared_ptr<ApplyInfo>> apply_list;
-	auto b_apply = GetFriendApplyInfo(uid,apply_list);
+	auto b_apply = GetFriendApplyInfo(uid, apply_list);
 	if (b_apply) {
 		for (auto & apply : apply_list) {
 			Json::Value obj;

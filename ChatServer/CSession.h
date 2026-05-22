@@ -4,7 +4,6 @@
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/beast/http.hpp>
 #include <boost/beast.hpp>
-#include <boost/asio.hpp>
 #include <queue>
 #include <mutex>
 #include <memory>
